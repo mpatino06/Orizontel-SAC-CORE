@@ -1,0 +1,300 @@
+﻿@model List<SAC.CORE.API.ExtendModels.ClienteCuentaMovimientos>
+@{
+    ViewData["Title"] = "Movimientos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        @if(Model.Count > 0)
+                        {
+                        <h3 class="panel-title">Movimientos,  Tipo de cuenta @Model.FirstOrDefault().NombreTipoCuenta</h3>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Cliente: </span>
+
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                </div>
+
+                <div id="divMessageConsulta" class="form-inline">
+                    <div>
+                        <span>Transacciones del mes de @DateTime.Now.ToString("MMMM") </span>
+
+                        <span> de @DateTime.Now.ToString("yyyy") </span>
+                    </div>
+                </div>
+                <br />
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" href="#collapse1" class="input-sm">Consulta de Movimientos</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <span class="input-sm">Esta opcion le permite realizar una consulta detallada de los movimientos de sus cuentas. Seleccione el parametro a travéz del cual desea realizar su consulta y haga clic en <b>Consultar</b></span>
+                                <div class="form-inline input-sm">
+                                    <div>
+                                        <div class="col-sm-2">
+                                            <span>
+                                                <input type="radio" name="survey" id="Radios1" value="mes" />
+                                                Por Mes
+                                            </span>
+                                        </div>
+                                        @*Html.DropDownList("Months", ViewData["Meses"] as List<SelectListItem>, new { @class = "input-sm", onchange = "this.form.submit();" })*@
+                                            @Html.DropDownList("Months", ViewData["Meses"] as List<SelectListItem>, new { @class = "input-sm" })
+                                            <span> de @DateTime.Now.ToString("yyyy") </span>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-inline input-sm">
+                                    <div>
+                                        <div class="col-sm-2">
+                                            <span>
+                                                <input type="radio" name="survey" id="Radios2" value="rango" />
+                                                Por Rango de Fecha
+                                            </span>
+                                        </div>
+
+                                        <span>Inicial </span>
+                                        <div class="input-group col-md-2">
+                                            <div class='input-group date' id='datetimepickerIni'>
+                                                <input type='text' class="form-control input-sm" id="dtpIni" name="dtpIni" value="@ViewData["MesIni"]" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <span>Final </span>
+                                        <div class="input-group col-md-2">
+                                            <div class='input-group date' id='datetimepickerIni'>
+                                                <input type='text' class="form-control input-sm" id="dtpFin" name="dtpFin" value="@ViewData["MesFin"]" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar sm"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="form-inline">
+                                    <div>
+                                        <div style="text-align:center">
+                                            <span>
+                                                <input type="submit" name="survey" value="Consultar" class="btn btn-primary" />
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-solid">
+                            <div class="box-body table-responsive no-padding">
+                                @{ if (Model != null)
+                                    {
+                                        <table class="table table-hover table-bordered" id="TableMovimientos">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Movimiento
+                                                    </th>
+                                                    <th>
+                                                        Fecha
+                                                    </th>
+                                                    <th>
+                                                        Transaccion
+                                                    </th>
+                                                    <th>
+                                                        Valor
+                                                    </th>
+                                                    <th>
+                                                        Documento
+                                                    </th>
+                                                    <th>
+                                                        Estado
+                                                    </th>
+                                                    <th>
+                                                        Saldo Cuenta
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.SecuencialMovimientoDetalle</td>
+                                                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                                                        <td>@item.NombreTransacion.ToString()</td>
+                                                        <td>@item.Valor.ToString()</td>
+                                                        <td> <a href="@Url.Action("PrintDocumento","client", new { @docu = item.Documento.ToString() })" onclick="NewWindow(this.href,'name','867','720','yes');return false;"> @item.Documento.ToString()</a></td>
+                                                        <td>@item.NombreEstado.ToString()</td>
+                                                        <td>@item.SaldoCuenta</td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <a href="@Url.Action("Consolidado","Client")" class="pull-right"> Volver a Cuentas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        function NewWindow(mypage, myname, w, h, scroll) {
+            var winl = (screen.width - w) / 2;
+            var wint = (screen.height - h) / 2;
+            winprops = 'height=' + h + ',width=' + w + ',top=' + wint + ',left=' + winl + ',scrollbars=' + scroll + ',resizable'
+            win = window.open(mypage, myname, winprops)
+            if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+        }
+
+        @*function getById(item) {
+
+            var object = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model._PrestamosMaestros.ToList()) as String);
+
+            var youngsters = object.filter(function (items) {
+                return items.NUMEROPRESTAMO == item;
+            })
+
+            var html = '';
+            $.each(youngsters[0]._PRESTAMOCLIENTES, function (key, vals) {
+                html += '<tr>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIAL + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALPRESTAMO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALCLIENTE + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESPRINCIPAL == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESTAACTIVO == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.NUMEROVERIFICADOR + '</td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+
+            $('#myModal').modal('show');
+
+        }*@
+
+        $(document).ready(function () { //Inicio
+
+            $(function () {
+
+                var init = "@ViewData["Init"]";
+                var chkselect = "@ViewData["RadioCkd"].ToString()";
+
+                if (chkselect == "mes") {
+
+                    $("#Radios1").attr("checked", "checked");
+                    $("#Radios2").removeAttr("checked");
+                }
+                else {
+                    $("#Radios2").attr("checked", "checked");
+                    $("#Radios1").removeAttr("checked");
+
+                }
+
+                if (init == "") {
+                    $("#divMessageConsulta").hide();
+                    $("#collapse1").removeClass("collapse");
+                }
+
+            });
+
+            $(function () {
+                $('#dtpIni').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                });
+                $('#dtpFin').datetimepicker({
+                    format: 'DD/MM/YYYY',
+                    useCurrent: false //Important! See issue #1075
+                });
+                $("#dtpIni").on("dp.change", function (e) {
+                    $('#dtpFin').data("DateTimePicker").minDate(e.date);
+                });
+                $("#dtpFin").on("dp.change", function (e) {
+                    $('#dtpIni').data("DateTimePicker").maxDate(e.date);
+                });
+            });
+
+            //$('input[name=name_of_your_radiobutton]:checked').val();
+
+            $("input[name=survey]").change(function () {
+                var optionSelected = $(this).val();
+
+                if (optionSelected == "rango") {
+                    $("#dtpIni").attr("required","required");
+                    $("#dtpFin").attr("required","required");
+                   // alert("rango");
+                } else {
+                    //alert("mes");
+                    $("#dtpIni").removeAttr("required")
+                    $("#dtpFin").removeAttr("required")
+
+                }
+
+            });
+
+            $('#TableMovimientos').DataTable({
+                "order": [[0, "desc"]],
+                language: {
+                    "decimal": "",
+                    "emptyTable": "La cuenta no presenta movimientos",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TableMovimientos tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+        });
+    </script>
+}

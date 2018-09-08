@@ -1,0 +1,150 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Transferencias Propias del cliente</title>
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.css" />
+        <link rel="stylesheet" href="~/css/AdminLTE.css" />
+        <link rel="stylesheet" href="~/css/skins/skin-blue.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" />
+        <link rel="stylesheet" href="~/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="~/alertifyjs/css/alertify.css" />
+        <link rel="stylesheet" href="~/alertifyjs/css/themes/default.css" />
+        <link rel="stylesheet" href="~/alertifyjs/css/themes/semantic.css" />
+        <link rel="stylesheet" href="~/alertifyjs/css/themes/default.css" />
+        <link href="~/alertifyjs/css/themes/bootstrap.rtl.css" rel="stylesheet" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/AdminLTE.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/skins/skin-blue.min.css" asp-append-version="true" />
+        <link rel="stylesheet" type="text/css" href="~/css/jquery.dataTables.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/alertifyjs/css/alertify.min.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Development">
+
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/app.js" asp-append-version="true"></script>
+        @*<script src="~/lib/PACE/pace.js" asp-append-version="true"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>*@
+        <script src="~/alertifyjs/alertify.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/jquery.dataTables.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/app.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+</head>
+<body>
+    <table style="width:800px;border-color: black;margin: 35px;border-style:  solid;border-width: thin; border-collapse:separate; border-spacing: 0 1em;">
+        <tr style="text-align: center;">
+            <td colspan="2" style="width: 100%;">
+                <p>&ensp;</p>
+                <img src="~/images/LOGO SAC.jpg" width="200px" />
+                <p>Comprobante de Transfrencia entre cuentas del Cliente</p>
+                <p>Banca electronica</p>
+                <p>Comprobante No. 6520147 </p>
+                @*<p>&ensp;</p>*@
+                <hr />
+            </td>
+        </tr>
+
+        <tr>
+
+            <td style="width: 25%;">
+                &ensp;&ensp;&ensp;<b>Datos del cliente</b>
+            </td>
+            <td>
+                PINZON CONTRERAS JOSE RAMON
+            </td>
+        </tr>
+
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Cuenta de Origen</b>
+            </td>
+            <td>
+                0123-456789
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Cuenta Destino</b>
+            </td>
+            <td>
+                0123-456789
+            </td>
+        </tr>
+
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Valor transferido</b>
+            </td>
+            <td>
+                $ 25.00
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Valor Comision</b>
+            </td>
+            <td>
+                $ 0.00
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Total Debitado</b>
+            </td>
+            <td>
+                <b>$ 25.00</b>
+            </td>
+        </tr>
+        <tr>
+
+            <td>
+                &ensp;&ensp;&ensp;<b>Concepto</b>
+            </td>
+            <td>
+                Otra cuenta Peronal
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>
+
+        <tr style="text-align:  center;">
+            <td colspan="2">
+                <p>Operacion realizada el dia Lunes 25 de Mayo de 2018, hora 3:25 a.m. Documento : 6520147 Transaccion Exitosa</p>
+            </td>
+        </tr>
+        @*<tr>
+            <td colspan="2">
+                <hr />
+            </td>
+        </tr>*@
+    </table>
+</body>
+</html>

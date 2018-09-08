@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "ClienteMora";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+@Html.AntiForgeryToken()
+
+<section class="content-header">
+    <h1>
+        Cliente
+        <small>Preview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+        <li><a href="#">User</a></li>
+    </ol>
+</section>
+<br />
+<div class="col-md-12">
+
+    <div class="panel panel-default panel-table">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col col-xs-6">
+                    <h3 class="panel-title">Mora</h3>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            @*<div class="form-inline">
+                <label>Codigo: &ensp;&ensp; </label>
+                <div class="input-group col-md-2">
+                    @Html.TextBox("ID", null, new { @required = "required", id = "ID", @placeholder = "Ej: 123456789", @class = "form-control" })
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <p></p>*@
+
+            <div class="form-inline">
+                <label>Fecha Inicio: &ensp; </label>
+                <div class="input-group col-md-2">
+                    <div class='input-group date' id='datetimepickerIni'>
+                        <input type='text' class="form-control" name="datetimepickerIni" required />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="form-inline">
+                <label>Fecha Final:&ensp;&ensp; </label>
+                <div class="input-group col-md-2">
+                    <div class='input-group date' id='datetimepickerFin'>
+                        <input type='text' class="form-control" name="datetimepickerFin" required />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="col-md-offset-2 btn-group">
+                        <button type="submit" name="submitButton" class="btn btn-primary">Buscar</button>
+                        <button name="cancelButton" class="btn btn-primary" id="cancelButton">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepickerIni').datetimepicker({
+                format: 'DD/MM/YYYY'
+            });
+            $('#datetimepickerFin').datetimepicker({
+                format: 'DD/MM/YYYY',
+                useCurrent: false //Important! See issue #1075
+            });
+            $("#datetimepickerIni").on("dp.change", function (e) {
+                $('#datetimepickerFin').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepickerFin").on("dp.change", function (e) {
+                $('#datetimepickerIni').data("DateTimePicker").maxDate(e.date);
+            });
+        });
+
+        $('#cancelButton').on('click', function () {
+            alert('hello');
+        });
+    </script>
+
+}

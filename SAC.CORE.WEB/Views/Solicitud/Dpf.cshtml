@@ -1,0 +1,608 @@
+﻿@{
+    ViewData["Title"] = "Dpf";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="MontoMaximoCuenta" value="@ViewData["MontoMaxCuenta"]" />
+    <input type="hidden" id="TipoCuenta" value="@ViewData["TipoCuentacliente"]" />
+    <input type="hidden" id="SecuenciaCuenta" name="SecuenciaCuenta" value="@ViewData["SecuencialCuenta"]" />
+    <input type="hidden" id="NombreCliente" name="NombreCliente" value="@ViewData["NombreUnido"]" />
+    <input type="hidden" id="IdentificacionCliente" name="IdentificacionCliente" value="@ViewData["IdentificacionCliente"]" />
+    <input type="hidden" id="CodCliente" name="CodCliente" value="@ViewData["CodigoCliente"]" />
+    <input type="hidden" id="DirCliente" name="DirCliente" value="@ViewData["DireccionCliente"]" />
+    <input type="hidden" id="TelCliente" name="TelCliente" value="@ViewData["TelefonoCliente"]" />
+    <input type="hidden" id="SecuencialCliente" name="SecuencialCliente" value="@ViewData["SecuencialCliente"]" />
+    <input type="hidden" id="TasaInteres" name="TasaInteres" value="" />
+    <input type="hidden" id="PlazoDias" name="PlazoDias" value="" />
+
+
+    @*<input type="hidden" id="MinDias" name="MinDias" value="" />
+        <input type="hidden" id="MaxDias" name="MaxDias" value="" />*@
+    <input type="hidden" id="MonLetras" name="MonLetras" value="" />
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Simulador - Plazo Fijo</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a) : </span>
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+
+                <div id="Pass1" class="col-sm-offset-4 col-sm-4">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h3 class="panel-title">Deposito Plazo Fijo</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="form-group row">
+                                        <label for="TipoPrestamo" class="col-sm-4 col-form-label">Tipo de Inversión</label>
+                                        <div class="col-sm-8">
+                                            <label>Deposito Plazo Fijo</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Amortizacion" class="col-sm-4 col-form-label">Plazo (días)</label>
+                                        <div class="col-sm-8">
+                                            @*@Html.DropDownList("PeriodoPF", ViewData["PeriodoPF"] as List<SelectListItem>, new { @class = "form-control input-sm", @style = "width:98%;" })*@
+
+                                            <input type="number" id="PeriodoPF" name="PeriodoPF" class="form-control input-sm" placeholder="Ingrese plazo de dias" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Monto" class="col-sm-4 col-form-label">Monto a Invertir</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" id="Monto" name="Monto" class="form-control input-sm" placeholder="Monto de Inversion" />
+                                        </div>
+                                    </div>
+
+                                    <div id="divporcentaje" class="row">
+                                        <div class="col-lg-12">
+
+                                            <div class="form-group row">
+                                                <label for="TipoPrestamo" class="col-sm-4 col-form-label">Total Interes</label>
+                                                <div class="col-sm-8">
+                                                    <label id="MontoIntereses">25 Usd</label>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="text-align: center;">
+                                                <label> Datos Beneficiario</label>
+                                            </div>
+                                            <br />
+
+                                            <div class="form-group row">
+                                                <label for="BenIdentificacion" class="col-sm-4 col-form-label">Identificacion</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="BenIdentificacion" name="BenIdentificacion" class="form-control input-sm" placeholder="Identificacion Beneficiarion" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="BenNombre" class="col-sm-4 col-form-label">Nombre</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="BenNombre" name="BenNombre" class="form-control input-sm" placeholder="Nombre beneficiario" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="BenParentesco" class="col-sm-4 col-form-label">Parentesco</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="BenParentesco" name="BenParentesco" class="form-control input-sm" placeholder="Parentesco beneficiario" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="BenDireccion" class="col-sm-4 col-form-label">Direccion</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="BenDireccion" name="BenDireccion" class="form-control input-sm" placeholder="Ingrese direccion" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="BenTelefono" class="col-sm-4 col-form-label">Telefono</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="BenTelefono" name="BenTelefono" class="form-control input-sm" placeholder="Telefono beneficiario" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div id="buttonsCalcular" class="row">
+
+                                        <div class="col-lg-12" style="text-align: center;">
+
+                                            <div class="btn-group col-lg-6 col-lg-offset-3">
+                                                <button type="button" id="btnCalcular" class="btn btn-primary btn-block"><i class="fa fa-calculator"></i>&ensp; Calcular</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="buttonsSave" class="row">
+
+                                        <div class="col-lg-12" style="text-align: center;">
+
+                                            @if (ViewData["TipoCuentacliente"].ToString() != "2")
+                                            {
+                                                <button type="button" id="btnNext" class="btn btn-primary" disabled>@*<i class="fa fa-save"></i>*@Siguiente</button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" id="btnNext" class="btn btn-primary">@*<i class="fa fa-save"></i>*@Siguiente</button>
+
+                                            }
+
+                                            <button type="button" id="btnCancelar" class="btn btn-danger">@*<i class="fa fa-ban"></i>*@ Cancelar</button>
+
+                                            <br />
+                                            <span class="help-block" style="text-align: center;"> Estimado Cliente, si desea generar el DPF ingrese el nombre de un beneficiario y haga clic en el boton "Siguiente"</span>
+                                        </div>
+                                    </div>
+
+                                    @if (ViewData["TipoCuentacliente"].ToString() != "2")
+                                    {
+                                        <br />
+                                        <span class="help-block" style="text-align: center;"> Estimado Cliente, usted no puede realizar depositos a Plazo Fijo</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Pass2" class="col-sm-offset-2 col-sm-8">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h3 class="panel-title">CERTIFICADO DE DEPOSTIO A PLAZO FIJO</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row content">
+                                <div class="col-lg-12">
+
+                                    <div class="row">
+                                        <label>No. 0-045631271</label>
+                                        <label id="documentoId" class="pull-right">CI / RUC: 1804237889</label>
+                                    </div>
+
+                                    <div id="valorNominal" class="row" style="text-align:center">
+                                        VALOR NOMINAL ***** US 10.000.00 *****
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <label> Titular (s):</label> <span id="txTitular">SANCHEZ GORDON DIEGO GERMAN</span>
+                                    </div>
+                                    <div class="row">
+                                        <label> Beneficiario:</label> <span id="txBeneficiario">XIMENA RUVIO (100,00%)</span>
+                                    </div>
+                                    <div class="row">
+                                        <label> Capital:</label> <span id="txMontoLetras"> DIEZ MIL CON 00/100 DOLARES </span>
+                                        <label id="txPlazoDias" class="pull-right">Plazo: 366 Días</label>
+                                    </div>
+                                    <div class="row">
+                                        <label> Fecha Emisión: </label> <span id="txfechaEmision"> AMBATO, 15-05-2018</span>
+                                    </div>
+                                    <div class="row">
+                                        <label> Fecha Vencimiento: </label> <span id="txfechaVencimiento"> AMBATO, 15-05-2018</span>
+                                    </div>
+                                    <div class="row">
+                                        <label> Fecha Cancelacion:</label><span id="txfechaCancelacion"> AMBATO, 15-05-2018</span>
+                                    </div>
+
+                                    <hr />
+                                </div>
+
+                                <div class="row" style="text-align:justify">
+                                    &ensp;&ensp;&ensp;En virtud de la facultad conferida en el literal b) del artículo 51 de la ley de instituciones del Sistema Financiero, la Cooperativa de Ahorro y Credito ORIZONTEL C.A. emite el presente Certificado de Deposito a Plazo Fijo nominativo y reconoce que pagará al cliente contra la presentación y entrega de este titulo y la identificación correspondiente al vencimiento del plazo, el importe del capital mas los intereses generados de acuerdo al calendario de pagos se incluye en este certificado y luego de reducir los impuestos de ley correspondiente.
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <label> Dirección:</label> <span id="txDireccion">PARROQUIA TOTORAS</span>
+                                </div>
+                                <div class="row">
+                                    <label> Telefono:</label> <span id="txTelefonos">122212112 | 87887788</span>
+                                </div>
+                                <div class="row">
+                                    <label>No socio:</label> <span id="txSocio">521</span>
+                                </div>
+                                <br />
+                                <div class="row" style="text-align:justify">
+                                    &ensp;&ensp;&ensp; El(Los) titular(es) o Beneficiario(s) declara(n) bajo juramento que el origen de los fondos entregado en este certificado tienen un origen y destino lícito y consecuentemente no provienen de ninguna otra actividad relacionada con la producción, consumo y comercialización de sustancias estupefacientes o psicotrópicas o cualquier otra actividad tipificada en la ley de sustancias estupefacientes y psocotrópicas.
+                                </div>
+                                <div class="row" style="text-align:justify">
+                                    En caso de no solicitar su cancelación al vencimiento, este certificado se renovará automaticamente por el plazo original a la tasa de interes vigente a la fecha de su renovacion.
+                                </div>
+                                <div class="row" style="text-align:justify">
+                                    El titular de este documento acepta los terminos y condiciones de este Certificado.
+                                </div>
+
+                                <br />
+                                <div class="row col-md-offset-4">
+                                    <table class="col-md-6" border="1">
+                                        <tr>
+                                            <td><b>CAPITAL</b></td>
+                                            <td id="txCapital"> 10000.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>INTERES</b></td>
+                                            <td id="txInteres"> 1118.33</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>SUBTOTAL</b></td>
+                                            <td id="txSubtotal"> 11118.33</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>V. DEL IMPUESTO (-)</b></td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>TOTAL A PAGAR</b></td>
+                                            <td id="txTotal"> 11118.33</td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <br />
+                                <div class="row" style="text-align:justify">
+                                    <b>Nota: este comprobante no es válido sin certificación de la cooperativa.</b>
+                                </div>
+                                <div class="row" style="text-align:justify">
+                                    El Interés se cancelará al momento del vencimiento de la poliza.
+                                </div>
+                                <br />
+                                <div class="row col-md-6 col-md-offset-3" style="text-align:center">
+                                    <button type="submit" id="btnSave" class="btn btn-primary"><i class="fa fa-money"></i>&nbsp; Guardar DPF</button>
+                                    <button type="button" id="btnCancelarDPF" class="btn btn-danger">@*<i class="fa fa-ban"></i>*@ Cancelar</button>
+
+                                    <a href="#" class="btn btn-primary" onclick="NewWindow(this.href,'name','867','720','yes');return false;"><i class="fa fa-print"></i>&ensp; Imprimir</a>
+                                    @*<button type="button" id="btnPrint" class="btn btn-primary"><i class="fa fa-print"></i>&ensp; Imprimir</button>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        function NewWindow(mypage, myname, w, h, scroll) {
+
+            var beneficiario = $("#BenNombre").val().trim();
+            var textIdentificacion = $("#IdentificacionCliente").val();
+            var txmontosolicitado = $("#Monto").val();
+            var txtvalorNominal = "";
+            var txtNombreCliente = $("#NombreCliente").val();
+            var txtNombreBeneficiario = $("#BenNombre").val();
+            var txtPlazoDias = $("#PeriodoPF").val();
+            //var txtMaxDias = Number($("#MaxDias").val());
+            var txtInteresTasa = $("#MontoIntereses").html().replace("$ ", "");
+
+            var txtFechaActual = moment().format("DD/MM/YYYY");
+            var txtFechaVenc = moment().add("days", Number(txtPlazoDias)).format("DD/MM/YYYY");
+            var txtFechaCanc = moment().add("days", Number(txtPlazoDias) + 1).format("DD/MM/YYYY");
+
+            var txtDireccion = $("#DirCliente").val();
+            var txtCodigo = $("#CodCliente").val();
+            var txtTelefono = $("#TelCliente").val();
+            var txtMontoLetras = $("#MonLetras").val();
+            var txtTot = (Number(txmontosolicitado) + Number(txtInteresTasa));
+
+            var path = document.location.origin;;
+
+            //var mipage2 = "http://localhost:56264/solicitud/print?tit=" + txtNombreCliente + "&ben=" + txtNombreBeneficiario + "&cap=" + txtMontoLetras + "&fecE=" + txtFechaActual + "&fecV=" + txtFechaVenc + "&fecC=" + txtFechaCanc + "&dir=" + txtDireccion + "&tel=" + txtTelefono + "&soc=" + txtCodigo + "&capn=" + txmontosolicitado + "&interes=" + txtInteresTasa + "&tot=" + txtTot + "&ide=" + textIdentificacion + "&plaz=" + txtPlazoDias;
+            mypage = path + "/solicitud/print?tit=" + txtNombreCliente + "&ben=" + txtNombreBeneficiario + "&cap=" + txtMontoLetras + "&fecE=" + txtFechaActual + "&fecV=" + txtFechaVenc + "&fecC=" + txtFechaCanc + "&dir=" + txtDireccion + "&tel=" + txtTelefono + "&soc=" + txtCodigo + "&capn=" + txmontosolicitado + "&interes=" + txtInteresTasa + "&tot=" + txtTot + "&ide=" + textIdentificacion + "&plaz=" + txtPlazoDias;
+            var winl = (screen.width - w) / 2;
+            var wint = (screen.height - h) / 2;
+            winprops = 'height=' + h + ',width=' + w + ',top=' + wint + ',left=' + winl + ',scrollbars=' + scroll + ',resizable'
+            win = window.open(mypage, myname, winprops)
+            if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+        }
+
+        $(document).ready(function () { //Inicio
+
+            $("#divporcentaje").hide();
+            $("#buttonsSave").hide();
+
+            $("#Pass2").hide();
+
+            $("#btnCalcular").on("click", function () {
+
+                if (validar()) {
+                    GeneraCalculos();
+                }
+
+            });
+
+            $("#btnCancelar").on("click", function () {
+
+                $("#divporcentaje").hide();
+                $("#buttonsSave").hide();
+                $("#buttonsCalcular").show();
+
+                $("#Monto").val("");
+                $("#PeriodoPF").val("");
+                $("Beneficiario").val("");
+                $("#btnSave").removeAttr("disabled");
+
+            });
+
+            $("#PeriodoPF").on("change", function () {
+
+                $("#divporcentaje").hide();
+                $("#buttonsSave").hide();
+                $("#buttonsCalcular").show();
+
+                $("#Monto").val("");
+
+            });
+
+            $("#btnNext").on("click", function () {
+                //debugger;
+                //var beneficiario = $("#Beneficiario").val().trim();
+                var textIdentificacion = "";
+                var txmontosolicitado = $("#Monto").val();
+                var txtvalorNominal = "";
+                var txtNombreCliente = $("#NombreCliente").val();
+               // var txtNombreBeneficiario = $("#Beneficiario").val();
+
+                var txtIdentificacionBeneficiario = $("#BenIdentificacion").val().trim();
+                var txtNombreBeneficiario = $("#BenNombre").val().trim();
+                var txtParentescoBeneficiario = $("#BenParentesco").val().trim();
+                var txtDireccionBeneficiario = $("#BenDireccion").val().trim();
+                var txtTelefonoBeneficiario = $("#BenTelefono").val().trim();
+
+                var txtPlazoDias = $("#PeriodoPF").val();
+                //var txtMaxDias = Number($("#MaxDias").val());
+                var txtInteresTasa = $("#MontoIntereses").html().replace("$ ","");
+
+                var txtFechaActual = moment().format("DD/MM/YYYY");
+                var txtFechaVenc = moment().add("days", Number(txtPlazoDias)).format("DD/MM/YYYY");
+                var txtFechaCanc = moment().add("days", Number(txtPlazoDias) + 1).format("DD/MM/YYYY");
+
+                var txtDireccion = $("#DirCliente").val();
+                var txtCodigo = $("#CodCliente").val();
+                var txtTelefono = $("#TelCliente").val();
+                var txtMontoLetras = $("#MonLetras").val();
+
+                if (txtIdentificacionBeneficiario == "") {
+                    alertify
+                        .alert("Debe ingresar la identificacion del beneficiario.", function () {
+
+                        });
+                    return false
+                }
+                else if (txtNombreBeneficiario == "") {
+                    alertify
+                        .alert("Debe ingresar el nombre del beneficiario.", function () {
+
+                        });
+                    return false
+                }
+                else if (txtParentescoBeneficiario == "") {
+                    alertify
+                        .alert("Debe ingresar el parentesco de beneficiario.", function () {
+
+                        });
+                    return false
+                }
+                else if (txtDireccionBeneficiario == "") {
+                    alertify
+                        .alert("Debe ingresar la dirección del beneficiario.", function () {
+
+                        });
+                    return false
+                }
+                else if (txtTelefonoBeneficiario == "") {
+                    alertify
+                        .alert("Debe ingresar el telefono del beneficiario.", function () {
+
+                        });
+                    return false
+                }
+                else {
+
+                    textIdentificacion = "CI / RUC: " + $("#IdentificacionCliente").val();
+                    txtvalorNominal = "VALOR NOMINAL ***** US " + txmontosolicitado + " *****";
+
+                    $("#documentoId").text(textIdentificacion);
+                    $("#valorNominal").text(txtvalorNominal);
+                    $("#txTitular").text(txtNombreCliente);
+                    $("#txBeneficiario").text(txtNombreBeneficiario.toUpperCase());
+                    $("#txPlazoDias").text("Plazo: " + txtPlazoDias + " Días");
+
+                    $("#txfechaEmision").text("AMBATO " + txtFechaActual);
+                    $("#txfechaVencimiento").text("AMBATO " + txtFechaVenc);
+                    $("#txfechaCancelacion").text("AMBATO " + txtFechaCanc);
+
+                    $("#txCapital").text(txmontosolicitado);
+                    $("#txInteres").text(txtInteresTasa);
+                    $("#txSubtotal").text(Number(txmontosolicitado) + Number(txtInteresTasa));
+                    $("#txTotal").text(Number(txmontosolicitado) + Number(txtInteresTasa));
+
+                    $("#txDireccion").text(txtDireccion);
+                    $("#txTelefonos").text(txtTelefono);
+                    $("#txSocio").text(txtCodigo);
+
+                    $("#txMontoLetras").text(txtMontoLetras);
+
+                    $("#Pass1").hide();
+                    $("#Pass2").show();
+
+                }
+            });
+
+            $("#btnCancelarDPF").on("click", function () {
+                $("#Pass2").hide();
+
+                $("#divporcentaje").hide();
+                $("#buttonsSave").hide();
+                $("#buttonsCalcular").show();
+
+                $("#Monto").val("");
+                $("#PeriodoPF").val("");
+                $("#Beneficiario").val("");
+                $("#btnSave").removeAttr("disabled");
+
+                $("#Pass1").show();
+            });
+
+            $("#btnPrint").on("click", function () {
+
+                printPage();
+            });
+
+            function validar() {
+                //debugger;
+                var txperiodo = $("#PeriodoPF").val().trim();
+                var txmontosolicitado = $("#Monto").val();
+
+                var result = true;
+
+                if (txperiodo == "") {
+                    alertify
+                        .alert("Debe ingresar el Periodo de dias.", function () {
+
+                        });
+                    return false
+                }
+                else if (Number(txperiodo) < 61) {
+                    alertify
+                        .alert("El periodo de dias debe ser mayor a 61", function () {
+
+                        });
+                    return false
+                }
+                else if (!Number(txmontosolicitado)) {
+                        alertify
+                            .alert("Debe ingresar el monto que se desea invertir.", function () {
+
+                            });
+                        return false
+                    }
+                else if (Number(txmontosolicitado) < 100) {
+                    alertify
+                        .alert("El monto debe ser Mayor o igual $ 100.", function () {
+
+                        });
+                    return false
+                }
+                return result;
+            }
+
+            function GeneraCalculos() {
+               //debugger;
+                var calculo = 0;
+                var txperiodo = $("#PeriodoPF").val();
+                var txmontosolicitado = $("#Monto").val();
+                var txporcentajeNominal = 0;
+                var txporcentajeEfectiva = 0;
+                var PorcentajeMonto = 0;
+                var Montoencuenta = $("#MontoMaximoCuenta").val();
+                var txPlazoDias
+
+                $("#PlazoDias").val(txperiodo);
+
+                if (Number(txmontosolicitado) > Number(Montoencuenta.replace(",", "."))) {
+                    //alert("Entro1");
+                    $("#btnSave").attr("disabled", "disabled");
+                }
+
+                //if (Number(txmontosolicitado) < Number(Montoencuenta.replace(",","."))) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetPlazoFijoPorcentaje")',
+                        datatype: 'json',
+                        data: { Plazo: txperiodo, Monto: txmontosolicitado },
+                        success: function (data) {
+
+                            txporcentajeNominal = data.nominal;
+                            txporcentajeEfectiva = data.efectiva;
+
+                            PorcentajeMonto = Math.round(txmontosolicitado * txporcentajeEfectiva) / 100;
+
+                            $("#MontoIntereses").html("$ " + PorcentajeMonto);
+
+                            //$("#MinDias").val(data.minimoDias);
+                            //$("#MaxDias").val(data.maximoDias);
+                            $("#TasaInteres").val(txporcentajeNominal);
+                            $("#MonLetras").val(data.montoLetras);
+
+                            $("#divporcentaje").show();
+                            $("#buttonsSave").show();
+
+                            $("#buttonsCalcular").hide();
+
+                        },
+                        error: function (ex) {
+                            alert("Failed");
+                            $("#divporcentaje").hide();
+                            $("#buttonsSave").hide();
+                        }
+
+                });
+                //}
+                //else {
+                //    alertify
+                //        .alert("Monto en cuenta insuficiente $ " + Montoencuenta, function () {
+
+                //        });
+                //    return false
+
+                //}
+
+            }
+
+            function printPage() {
+
+                document.getElementById('btnSave').style.visibility = 'hidden';
+                document.getElementById('btnCancelarDPF').style.visibility = 'hidden';
+                document.getElementById('btnPrint').style.visibility = 'hidden';
+
+                if (typeof (window.print) != 'undefined') {
+
+                    window.print();
+
+                }
+                document.getElementById('btnSave').style.visibility = '';
+                document.getElementById('btnCancelarDPF').style.visibility = '';
+                document.getElementById('btnPrint').style.visibility = '';
+
+            }
+
+        });
+    </script>
+
+}

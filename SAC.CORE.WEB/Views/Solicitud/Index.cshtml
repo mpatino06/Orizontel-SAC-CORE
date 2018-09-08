@@ -1,0 +1,320 @@
+﻿@model List<SAC.CORE.API.ExtendModels.SolicitudPrestamo>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Mis solicitudes</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a): </span>
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+
+                <div class="col-md-12">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 class="panel-title">Prestamos</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            @if (Model != null)
+                            {
+
+                                @if (Model.Count > 0)
+                                {
+
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box-solid">
+                                                <div class="box-body table-responsive no-padding">
+
+                                                    <table class="table table-hover table-bordered table-striped" id="TablePrestamo">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Codigo
+                                                                </th>
+                                                                <th>
+                                                                    Numero Solicitud
+                                                                </th>
+                                                                <th>
+                                                                    Monto Solicitado
+                                                                </th>
+                                                                <th>
+                                                                    Monto Aprobado
+                                                                </th>
+                                                                <th>
+                                                                    Fecha
+                                                                </th>
+
+                                                                <th>
+                                                                    Estado solicitud
+                                                                </th>
+                                                                <th>
+                                                                    Tipo Prestamo
+                                                                </th>
+                                                                <th>
+                                                                    Número cuotas
+                                                                </th>
+                                                                <th>
+                                                                    Amortizacion
+                                                                </th>
+                                                                <th>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in Model)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.Secuencial.ToString()</td>
+                                                                    <td>@item.NumeroSolicitud</td>
+                                                                    <td>@item.MontoSolicitado.ToString("N2")</td>
+                                                                    <td>@item.MontoAprobado.ToString("N2")</td>
+                                                                    <td>@item.FechaIngreso.ToString("dd/MM/yyyy")</td>
+                                                                    <td>@item.EstadoSolicitud</td>
+                                                                    <td>@item.TipoPrestamo</td>
+                                                                    <td>@item.NumeroCuotas</td>
+                                                                    <td>@item.CondiccionTablaAmortz</td>
+                                                                    <td>
+                                                                        <a class="btn btn-danger btn-sm" href="#" onclick="Delete(@item.Secuencial)"><i class="fa fa-trash"></i> &ensp;Eliminar</a>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+
+                                    <span class="help-block"> Estimado Cliente, usted no tiene Solicitudes Pendientes</span>
+                                }
+                            }
+                            else
+                            {
+
+                                <span class="help-block"> Estimado Cliente, usted no tiene Solicitudes Pendientes</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Inversiones</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="col-md-12">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-6">
+                                    <h3 class="panel-title">Despositos Plazo Fijo</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            @if (ViewData["ListDpf"] != null)
+                            {
+                                var rlist = ViewData["ListDpf"] as IEnumerable<SAC.CORE.API.Models.Depositomaestro>;
+
+                                if(rlist.Count() > 0)
+                                {
+                                    <br />
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box-solid">
+                                                <div class="box-body table-responsive no-padding">
+
+                                                    <table class="table table-hover table-bordered table-striped" id="TableDpf">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    Codigo
+                                                                </th>
+                                                                <th>
+                                                                    Fecha Creación
+                                                                </th>
+                                                                <th>
+                                                                    Fecha Vencimiento
+                                                                </th>
+                                                                <th>
+                                                                    Monto
+                                                                </th>
+                                                                <th>
+                                                                    Tasa
+                                                                </th>
+                                                                <th>
+                                                                    Estado
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewData["ListDpf"] as IEnumerable<SAC.CORE.API.Models.Depositomaestro>)
+                                                            {
+                                                                <tr>
+
+                                                                    <td><a href="@Url.Action("PrintDoc", "Solicitud", new { @secuencial = item.Secuencial })" onclick="NewWindow(this.href,'name','867','720','yes');return false;">@item.Codigo.ToString()</a></td>
+                                                                    <td>@item.Fechacreacion.ToString("dd/MM/yyyy")</td>
+                                                                    <td>@item.Fechavencimiento.ToString("dd/MM/yyyy")</td>
+                                                                    <td>@item.Monto.ToString()</td>
+                                                                    <td>@item.Tasa.ToString()</td>
+                                                                    <td>@item.Codigoestadodeposito</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                                else
+                                {
+
+                                    <span class="help-block"> Estimado Cliente, usted no tiene Inversiones</span>
+                                }
+
+                            }
+                            else
+                            {
+
+                                <span class="help-block"> Estimado Cliente, usted no tiene Inversiones</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        function NewWindow(mypage, myname, w, h, scroll) {
+            var winl = (screen.width - w) / 2;
+            var wint = (screen.height - h) / 2;
+            winprops = 'height=' + h + ',width=' + w + ',top=' + wint + ',left=' + winl + ',scrollbars=' + scroll + ',resizable'
+            win = window.open(mypage, myname, winprops)
+            if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+        }
+
+        function Delete(Id) {
+
+            //alert(Id);
+
+            alertify.confirm("Desea Eliminar la solicitud Seleccionada.",
+                function () {
+                    alertify.success('Ok');
+                },
+                function () {
+                    alertify.error('Cancel');
+                });
+
+        }
+
+        $(document).ready(function () { //Inicio
+
+            var myTableTelephone = $('#TablePrestamo').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            var myTableDpf = $('#TableDpf').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TablePrestamo tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#TableDpf tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,84 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamoClientes>
+
+<div class="box-body table-responsive no-padding">
+
+    @{ if (Model.Any())
+        {
+            <table class="table table-hover table-bordered table-striped" id="TableMovimientosSaldos">
+                <thead>
+                    <tr style="font-size:8pt">
+                        <th>
+                            Sec Prest cliente
+                        </th>
+                        <th>
+                            Secuencial Prestamo
+                        </th>
+                        <th>
+                            Principal?
+                        </th>
+                        <th>
+                            Activo?
+                        </th>
+                        <th>
+                            Sec Mov
+                        </th>
+                        <th>
+                            Sec Mov Detll Pres
+                        </th>
+                        <th>
+                            Valor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="font-size:8pt">@item.SECUENCIALCLIENTE.ToString()</td>
+                            <td style="font-size:8pt">@item.SECUENCIALPRESTAMO.ToString()</td>
+                            <td style="font-size:8pt">
+                                @{ if (item.ESPRINCIPAL)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">
+                                @{ if (item.ESTAACTIVO)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            @foreach(var detail in item._MOVIMIENTOS)
+                            {
+                        <tr>
+
+                            <td style="font-size:8pt"></td>
+                            <td style="font-size:8pt"></td>
+                            <td style="font-size:8pt"></td>
+                            <td style="font-size:8pt"></td>
+
+                            <td style="font-size:8pt">@detail.SECUENCIAL.ToString()</td>
+                            <td style="font-size:8pt">@detail.SECUENCIALMOVDETALLEPRESTAMO.ToString()</td>
+                            <td style="font-size:8pt">@detail.VALOR</td>
+                        </tr>
+
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+
+    }
+</div>

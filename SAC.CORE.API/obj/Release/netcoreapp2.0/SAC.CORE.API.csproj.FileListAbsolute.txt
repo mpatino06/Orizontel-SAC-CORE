@@ -1,0 +1,11 @@
+D:\SAC\SAC.CORE.API\SAC.CORE.API\bin\Release\netcoreapp2.0\SAC.CORE.API.deps.json
+D:\SAC\SAC.CORE.API\SAC.CORE.API\bin\Release\netcoreapp2.0\SAC.CORE.API.runtimeconfig.json
+D:\SAC\SAC.CORE.API\SAC.CORE.API\bin\Release\netcoreapp2.0\SAC.CORE.API.runtimeconfig.dev.json
+D:\SAC\SAC.CORE.API\SAC.CORE.API\bin\Release\netcoreapp2.0\SAC.CORE.API.dll
+D:\SAC\SAC.CORE.API\SAC.CORE.API\bin\Release\netcoreapp2.0\SAC.CORE.API.pdb
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.csproj.CoreCompileInputs.cache
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.AssemblyInfoInputs.cache
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.AssemblyInfo.cs
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.dll
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.pdb
+D:\SAC\SAC.CORE.API\SAC.CORE.API\obj\Release\netcoreapp2.0\SAC.CORE.API.csprojAssemblyReference.cache

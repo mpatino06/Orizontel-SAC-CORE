@@ -1,0 +1,159 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamosMovimientos>
+@{
+    ViewData["Title"] = "MovimientoPrestamo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Movimientos Prestamo: @ViewData["NumeroPrestamo"]  </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Cliente: @ViewData["NombreUnido"]</span>
+
+                    @*<label class="text-uppercase">@ViewData["NombreUnido"]</label>*@
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-solid">
+                            <div class="box-body table-responsive no-padding">
+                                @{ if (Model != null)
+                                    {
+                                        <table class="table table-hover table-bordered" id="TableMovimientosPrestamos">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Codigo
+                                                    </th>
+                                                    <th>
+                                                        Movimiento
+                                                    </th>
+                                                    <th>
+                                                        Numero Cuota
+                                                    </th>
+                                                    <th>
+                                                        Componente
+                                                    </th>
+                                                    <th>
+                                                        Valor
+                                                    </th>
+                                                    <th>
+                                                        Saldo
+                                                    </th>
+                                                    <th>
+                                                        Estado Prestamo
+                                                    </th>
+                                                    <th>
+                                                        Fecha
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                <tr>
+                                                    <td>@item.Secuencial</td>
+                                                    <td>@item.CodigoTipoMovimiento.ToString()</td>
+                                                    <td>@item.Numerocuota.ToString()</td>
+                                                    <td>@item.NombreComponente.ToString()</td>
+                                                    <td>@item.Valor</td>
+                                                    <td>@item.Saldo</td>
+                                                    <td>@item.Nombre.ToString()</td>
+                                                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                                                </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <a href="@Url.Action("Consolidado","Client")" class="pull-right"> Volver a Cuentas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        @*function getById(item) {
+
+            var object = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model._PrestamosMaestros.ToList()) as String);
+
+            var youngsters = object.filter(function (items) {
+                return items.NUMEROPRESTAMO == item;
+            })
+
+            var html = '';
+            $.each(youngsters[0]._PRESTAMOCLIENTES, function (key, vals) {
+                html += '<tr>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIAL + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALPRESTAMO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALCLIENTE + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESPRINCIPAL == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESTAACTIVO == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.NUMEROVERIFICADOR + '</td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+
+            $('#myModal').modal('show');
+
+        }*@
+
+        $(document).ready(function () { //Inicio
+
+            var myTableTelephone = $('#TableMovimientosPrestamos').DataTable({
+                "order": [[0, "desc"]],
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TableMovimientosPrestamos tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+        });
+    </script>
+}

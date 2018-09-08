@@ -1,0 +1,448 @@
+﻿@model SAC.CORE.API.ExtendModels.ClienteConsolidado
+@{
+    ViewData["Title"] = "Consolidado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Posición Consolidada</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a): </span>
+                    <label class="text-uppercase">@Model.NombreUnido.ToString()</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+                <label> Su última visita fue el día @ViewData["HoraFormato"]</label>
+                <br />
+
+                @if (Model.Cuentas.Count > 0)
+                {
+                    <span class="help-block"> Para ver mas detalle, haga clic sobre su número de cuenta</span>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-solid">
+                                <div class="box-body table-responsive no-padding">
+
+                                    <table class="table table-hover table-bordered" id="TableCuentas">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Codigo
+                                                </th>
+                                                <th>
+                                                    Tipo de Cuenta
+                                                </th>
+                                                <th>
+                                                    Estado de cuenta
+                                                </th>
+                                                <th>
+                                                    Número Libreta
+                                                </th>
+                                                <th>
+                                                    Saldo
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                decimal _total = 0;
+                                                foreach (var item in Model.Cuentas)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Codigo.ToString()</td>
+                                                        <td>@item.NombreTipoCuenta.ToString()</td>
+                                                        <td>@item.NombreEstadoCuenta.ToString()</td>
+                                                        <td> <a href="@Url.Action("Movimientos", new { @secuencial = item.SecuencialCuentaMaestro })"> @item.Codigo.ToString()</a>  </td>
+                                                        <td style="text-align:center">@item.SaldoCuenta</td>
+                                                        <td>
+                                                            <a href="@Url.Action("Movimientos", new { @secuencial = item.SecuencialCuentaMaestro })">Ver Detalles</a>
+                                                        </td>
+                                                    </tr>
+                                                    _total += item.SaldoCuenta;
+                                                }
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="text-align:center;font-weight:bold">Total: @_total</td>
+                                                <td></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    <span class="help-block"> Estimado Cliente, usted no tiene Cuentas</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Prestamos</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                @if (Model.Prestamos != null)
+                {
+
+                    @if (Model.Prestamos.Count > 0)
+                    {
+                        <span class="help-block"> Para ver Movimientos, haga clic sobre el número de prestamo</span>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box-solid">
+                                    <div class="box-body table-responsive no-padding">
+
+                                        <table class="table table-hover table-bordered table-striped" id="TablePrestamo">
+                                            <thead>
+                                                <tr style="font-size:8pt">
+                                                    <th>
+                                                        Prestamo
+                                                    </th>
+                                                    <th>
+                                                        Tipo Prestamo
+                                                    </th>
+                                                    <th>
+                                                        Frec Pago
+                                                    </th>
+                                                    <th>
+                                                        Num Cuotas
+                                                    </th>
+                                                    <th>
+                                                        Deuda Inic
+                                                    </th>
+                                                    <th>
+                                                        Val entregado
+                                                    </th>
+                                                    <th>
+                                                        Fec Adjud.
+                                                    </th>
+                                                    <th>
+                                                        Fec Venc.
+                                                    </th>
+                                                    <th>
+                                                        Estado
+                                                    </th>
+                                                    <th>
+                                                        Sal Actual
+                                                    </th>
+                                                    <th>
+                                                        Dias Reajuste
+                                                    </th>
+                                                    <th>
+                                                        Fec Corte
+                                                    </th>
+                                                    <th>
+                                                        Tea con Seg
+                                                    </th>
+                                                    <th>
+                                                        Tea sin Seg
+                                                    </th>
+                                                    <th>
+                                                        Esta Vig clas
+                                                    </th>
+                                                    <th>
+                                                        Num Pagare
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Prestamos)
+                                                {
+                                                    <tr>
+                                                        <td style="font-size:8pt; width:30pt"><a href="@Url.Action("MovimientoPrestamo", "Client", new { @prestamo = item.SECUENCIAL })">@item.NUMEROPRESTAMO.ToString()</a></td>
+                                                        <td style="font-size:8pt">@item.CODIGOTIPOPRESTAMO.ToString()</td>
+                                                        <td style="font-size:8pt">@item.FRECUENCIAPAGO.ToString()</td>
+                                                        <td style="font-size:8pt">@item.NUMEROCUOTAS</td>
+                                                        <td style="font-size:8pt">@item.DEUDAINICIAL</td>
+                                                        <td style="font-size:8pt">@item.VALORENTREGADO</td>
+                                                        <td style="font-size:8pt">@item.FECHAADJUDICACION.ToString("dd/MM/yyyy")</td>
+                                                        <td style="font-size:8pt">@item.FECHAVENCIMIENTO.ToString("dd/MM/yyyy")</td>
+                                                        <td style="font-size:8pt">@item.CODIGOESTADOPRESTAMO.ToString()</td>
+                                                        <td style="font-size:8pt">@item.SALDOACTUAL.ToString()</td>
+                                                        <td style="font-size:8pt">@item.DIASREAJUSTE.ToString()</td>
+                                                        <td style="font-size:8pt">@item.FECHACORTE.ToString("dd/MM/yyyy")</td>
+                                                        <td style="font-size:8pt">@item.TEACONSEGURO.ToString()</td>
+                                                        <td style="font-size:8pt">@item.TEASINSEGURO.ToString()</td>
+                                                        <td style="font-size:8pt">
+                                                            @{ if (item.ESTAVIGENTECLASIFICACION)
+                                                                {
+                                                                    @Html.Raw("SI")
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.Raw("NO")
+                                                                }
+                                                            }
+                                                        </td>
+                                                        <td style="font-size:8pt">@item.NUMEROPAGARE.ToString()</td>
+                                                    </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <span class="help-block"> Estimado Cliente, usted no tiene Prestamos</span>
+                    }
+                }
+                else
+                {
+
+                    <span class="help-block"> Estimado Cliente, usted no tiene Prestamos</span>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Inversiones</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                @if (Model.DspositoPF != null)
+                {
+
+                    @if (Model.DspositoPF.Count > 0)
+                    {
+                        <span class="help-block"> haga clic sobre el número DFP para ver detalles</span>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="box-solid">
+                                    <div class="box-body table-responsive no-padding">
+
+                                        <table class="table table-hover table-bordered table-striped" id="TableDpf">
+                                            <thead>
+                                                <tr style="font-size:8pt">
+                                                    <th>
+                                                        Codigo
+                                                    </th>
+                                                    <th>
+                                                        Fecha Creación
+                                                    </th>
+                                                    <th>
+                                                        Fecha Vencimiento
+                                                    </th>
+                                                    <th>
+                                                        Monto
+                                                    </th>
+                                                    <th>
+                                                        Tasa
+                                                    </th>
+                                                    <th>
+                                                        Estado
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.DspositoPF)
+                                                {
+                                                <tr>
+
+                                                        <td><a href="@Url.Action("PrintDoc", "Solicitud", new { @secuencial = item.Secuencial })" onclick="NewWindow(this.href,'name','867','720','yes');return false;">@item.Codigo.ToString()</a></td>
+                                                        <td>@item.Fechacreacion.ToString("dd/MM/yyyy")</td>
+                                                        <td>@item.Fechavencimiento.ToString("dd/MM/yyyy")</td>
+                                                        <td>@item.Monto.ToString()</td>
+                                                        <td>@item.Tasa.ToString()</td>
+                                                        <td>@item.Codigoestadodeposito</td>
+                                                </tr>
+
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                    else
+                    {
+
+                        <span class="help-block"> Estimado Cliente, usted no tiene Inversiones</span>
+                    }
+                }
+                else
+                {
+
+                    <span class="help-block"> Estimado Cliente, usted no tiene Inversiones</span>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+        @*function getById(item) {
+
+            var object = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model._PrestamosMaestros.ToList()) as String);
+
+            var youngsters = object.filter(function (items) {
+                return items.NUMEROPRESTAMO == item;
+            })
+
+            var html = '';
+            $.each(youngsters[0]._PRESTAMOCLIENTES, function (key, vals) {
+                html += '<tr>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIAL + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALPRESTAMO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALCLIENTE + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESPRINCIPAL == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + (vals.ESTAACTIVO == true ? 'SI' : 'NO') + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.NUMEROVERIFICADOR + '</td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+
+            $('#myModal').modal('show');
+
+        }*@
+
+        function NewWindow(mypage, myname, w, h, scroll) {
+
+            //var beneficiario = $("#BenNombre").val().trim();
+            //var textIdentificacion = $("#IdentificacionCliente").val();
+            //var txmontosolicitado = $("#Monto").val();
+            //var txtvalorNominal = "";
+            //var txtNombreCliente = $("#NombreCliente").val();
+            //var txtNombreBeneficiario = $("#BenNombre").val();
+            //var txtPlazoDias = $("#PeriodoPF").val();
+            ////var txtMaxDias = Number($("#MaxDias").val());
+            //var txtInteresTasa = $("#MontoIntereses").html().replace("$ ", "");
+
+            //var txtFechaActual = moment().format("DD/MM/YYYY");
+            //var txtFechaVenc = moment().add("days", Number(txtPlazoDias)).format("DD/MM/YYYY");
+            //var txtFechaCanc = moment().add("days", Number(txtPlazoDias) + 1).format("DD/MM/YYYY");
+
+            //var txtDireccion = $("#DirCliente").val();
+            //var txtCodigo = $("#CodCliente").val();
+            //var txtTelefono = $("#TelCliente").val();
+            //var txtMontoLetras = $("#MonLetras").val();
+            //var txtTot = (Number(txmontosolicitado) + Number(txtInteresTasa));
+
+           // mypage = "http://localhost:56264/solicitud/print?tit=" + txtNombreCliente + "&ben=" + txtNombreBeneficiario + "&cap=" + txtMontoLetras + "&fecE=" + txtFechaActual + "&fecV=" + txtFechaVenc + "&fecC=" + txtFechaCanc + "&dir=" + txtDireccion + "&tel=" + txtTelefono + "&soc=" + txtCodigo + "&capn=" + txmontosolicitado + "&interes=" + txtInteresTasa + "&tot=" + txtTot + "&ide=" + textIdentificacion + "&plaz=" + txtPlazoDias;
+            var winl = (screen.width - w) / 2;
+            var wint = (screen.height - h) / 2;
+            winprops = 'height=' + h + ',width=' + w + ',top=' + wint + ',left=' + winl + ',scrollbars=' + scroll + ',resizable'
+            win = window.open(mypage, myname, winprops)
+            if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+        }
+
+        $(document).ready(function () { //Inicio
+
+            var myTableTelephone = $('#TableDpf').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            var myTableTelephone = $('#TablePrestamo').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TablePrestamo tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $('#TableDpf tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+            //$('#TablePrestamo tbody').on('click', 'tr', function () {
+            //    $(this).toggleClass('selected');
+            //});
+
+        });
+    </script>
+}

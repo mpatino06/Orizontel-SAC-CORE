@@ -1,0 +1,349 @@
+﻿@model SAC.CORE.API.ExtendModels.PersonaDetalle
+
+@{
+    ViewData["Title"] = "Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="selImagen" name="selImagen" />
+    <section class="content-header">
+        <h1>
+            Usuario
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+            <li><a href="#">User</a></li>
+        </ol>
+    </section>
+    <br />
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Usuario</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <label>Codigo Usuario: </label>
+                    <div class="input-group col-md-2">
+                        @Html.TextBoxFor(a => a._AdminUsuario.Codigo, null, new { id = "ID", @class = "form-control", @readonly = "readonly" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-offset-4 col-lg-4">
+                        <div class="form-group">
+                            <div class="center-block" style="text-align:center;">
+
+                                <div class="btn-group" style="text-align:center">
+                                    <!-- CURRENCY, BOOTSTRAP DROPDOWN -->
+                                    <!--<a class="btn btn-primary" href="javascript:void(0);">Currency</a>-->
+                                    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"> Seleccione Imagen <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <img src="~/images/Galeria/gorila.jpg" style="width:50px;height:50px" alt="GOR" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <img src="~/images/Galeria/elefante.jpg" style="width:50px;height:50px" alt="ELE" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <img src="~/images/Galeria/cocodrilo.jpg" style="width:50px;height:50px" alt="COC" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <img src="~/images/Galeria/bufalo.jpg" style="width:50px;height:50px" alt="BUF" />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);">
+                                                <img src="~/images/Galeria/osopolar.jpg" style="width:50px;height:50px" alt="OSO" />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <p></p>
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-font fa-lg" aria-hidden="true"></i></span>
+                                @Html.TextBoxFor(a => a._AdminUsuario.TextoImagen, new { @class = "form-control", @required = "required", @title = "Texto imagen de seguridad" })
+                                @*<input type="text" class="form-control" id="texto" name="texto" value="@Model._AdminUsuario.TextoImagen" required="required" title="Texto imagen de seguridad">*@
+                            </div>
+
+                            <div class="center-block" style="text-align:center;">
+                                <span class="help-block"> Seleccione una Imagen e Ingrese un texto</span>
+                            </div>
+
+                            <div class="input-groupp">
+                                <label>Clave</label>
+                                @Html.TextBoxFor(a => a._AdminUsuario.Clave, new { @class = "form-control input-sm", @style = "width:98%;", @type = "password" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-offset-4 col-lg-4">
+                        <button class="btn btn-success btn-block">Actualizar datos de Seguridad</button>
+                    </div>
+                    @*<div class="col-lg-6">
+                            <button id="btnCancelar" class="btn btn-danger btn-block">Cancelar</button>
+                        </div>*@
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-6">
+                                        <h3 class="panel-title">Información</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Codigo Usuario</label>
+                                        @Html.TextBoxFor(a => a._Persona.IDENTIFICACION, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Nombre</label>
+                                        @Html.TextBoxFor(a => a._Persona.NOMBREUNIDO, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Direccion Referencia</label>
+                                        @Html.TextBoxFor(a => a._Persona.DIRECCIONDOMICILIO, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Domicilio</label>
+                                        @Html.TextBoxFor(a => a._Persona.REFERENCIADOMICILIARIA, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Email</label>
+                                        @Html.TextBoxFor(a => a._Persona.EMAIL, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Fecha Nacimiento</label>
+                                        @*@Html.TextBoxFor(a => a._PersonaNatural.FechaNacimiento, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })*@
+                                        <input type="text" value="@Model._PersonaNatural.FechaNacimiento.ToString("dd/MM/yyyy")" class="form-control input-sm" style="width:98%" readonly />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Estado Civil</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Estadocivil, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Tipo Educacion</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Tipoeducacion, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Tipo Vivienda</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Tipovivienda, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Profesión</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Profesion, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Lugar Nacimiento</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Lugarnacimiento, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="row form-group">
+                                        <label>Cargas Familiares</label>
+                                        @Html.TextBoxFor(a => a._PersonaNatural.Cargasfamiliares, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-md-6">
+                                            <div class="row form-group">
+                                                <label>Egresos Mensuales</label>
+                                                @Html.TextBoxFor(a => a._PersonaNatural.Egresosmensuales, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row form-group">
+                                                <label>Patrimonio</label>
+                                                @Html.TextBoxFor(a => a._PersonaNatural.Patrimonio, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row form-group">
+                                                <label>Activos Totales</label>
+                                                @Html.TextBoxFor(a => a._PersonaNatural.Activostotales, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="row form-group">
+                                                <label>Pasivos Totales</label>
+                                                @Html.TextBoxFor(a => a._PersonaNatural.Pasivostotales, new { @class = "form-control input-sm", @style = "width:98%;", @readonly = "readonly" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="box-solid">
+                                            <div class="box-body table-responsive no-padding">
+                                                @{ if (Model._TelefonoPersonas.Any())
+                                                    {
+                                                        <table class="table table-hover table-bordered" id="TableTelephone">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        Empresa Telefonica
+                                                                    </th>
+                                                                    <th>
+                                                                        Tipo Telefono
+                                                                    </th>
+                                                                    <th>
+                                                                        Número Telefono
+                                                                    </th>
+                                                                    <th>
+                                                                        Descripcion
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var item in Model._TelefonoPersonas)
+                                                                {
+                                                                    <tr>
+                                                                        <td style="text-align:center">@item.CODIGOEMPRESATELEFONICA.ToString()</td>
+                                                                        <td style="text-align:center">@item.CODIGOTIPOTELEFONO.ToString()</td>
+                                                                        <td>@item.NUMEROTELEFONO.ToString()</td>
+                                                                        <td>@item.DESCRIPCION.ToString()</td>
+                                                                    </tr>
+
+                                                                }
+                                                            </tbody>
+                                                        </table>
+
+                                                    }
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () { //Inicio
+
+            @*var _imgSource =
+            var _img = '<img style=width:100px;height:100px src="' + _imgSource + '" />';
+            $(this).parents('.btn-group').find('.dropdown-toggle').html_(img + ' <span class="caret"></span>');*@
+
+            var imgSource = "/images/Galeria/gorila.jpg";
+            var img = '<img style=width:100px;height:100px src="' + imgSource.replace("..", "") + '" />';
+            $(this).parents('.dropdown-menu li a btn-group').find('.dropdown-toggle').html(img + ' <span class="caret"></span>');
+
+            var myTableTelephone = $('#TableTelephone').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TableTelephone tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            $(".dropdown-menu li a").click(function () {
+                //debugger;
+                var selText = $(this).text();
+                var imgSource = $(this).find('img').attr('src');
+                var img = '<img style=width:100px;height:100px src="' + imgSource + '" />';
+                $(this).parents('.btn-group').find('.dropdown-toggle').html(img  + ' <span class="caret"></span>');
+
+                var thisAttr = $(this).find('img').attr('alt'); // $(this).attr('title');
+                console.log(thisAttr);
+                $("#selImagen").val(thisAttr);
+            });
+
+        });
+    </script>
+}

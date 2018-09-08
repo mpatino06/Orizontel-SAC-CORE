@@ -1,0 +1,150 @@
+﻿@model SAC.CORE.API.ExtendModels.CuentasClienteAfiliacion
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Servicios Adiccionales - Afiliar productos y servicios - Agregar</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a): </span>
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+
+                <div id="Pass1" class="col-sm-offset-4 col-sm-4">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h3 class="panel-title">Guardar afiliacion</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="form-inline">
+                                        <label class="col-md-4 input-sm">Tipo de Servicio: </label>
+                                        <div class="input-group col-md-8">
+                                            <label class="input-sm">@ViewData["TipoServicio"].ToString()</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label class="col-md-4 input-sm">Benificiario </label>
+                                        <div class="input-group col-md-8">
+                                            <label class="input-sm">@Model.NombreUnido.ToString()</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label class="col-sm-4 input-sm">Tipo Cuenta: </label>
+                                        <div class="input-group col-md-8">
+                                            <label class="input-sm">@Model.TipoCuenta.ToString()</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label class="col-sm-4 input-sm">Documento Identidad: </label>
+                                        <div class="input-group col-md-8">
+
+                                            <label class="input-sm">@Model.TipoDocumento  @Model.Identificacion</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label class="col-sm-4 input-sm">Email: </label>
+                                        <div class="input-group col-md-8">
+                                            <input type="email" id="email" name="email" class="form-control input-sm" value="@Model.Email" required />
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-inline">
+                                        <label class="col-sm-4 input-sm">Alias: </label>
+                                        <div class="input-group col-md-8">
+                                            <input type="text" id="alias" name="alias" class="form-control input-sm" required />
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="form-inline">
+                                        <label class="col-sm-4 input-sm">Monto Maximo: </label>
+                                        <div class="input-group col-md-8">
+                                            <input type="number" id="montomaximo" name="montomaximo" min="100" class="form-control input-sm" required />
+                                        </div>
+                                    </div>
+                                    @*<br />*@
+
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group row" style="text-align: center;">
+                                                <span class="input-sm"> <b>Verifique que el serial de su tarjeta de seguridad sea el numero ****503</b>, Si el número mostrado es igual al serial de su tarjeta, por favor introduzca las coordenadas solicitadas a continuación</span>
+                                            </div>
+
+                                            <div class="row" style="text-align: center;">
+                                                <div class="col-sm-offset-3">
+
+                                                    <div class="col-lg-4">
+                                                        <div class="row form-group">
+                                                            <label>X1</label>
+                                                            <input type="password" id="Coordenada1" name="Coordenada1" maxlength="2" class="form-control" style="width:95%;text-align:center" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="row form-group">
+                                                            <label>X2</label>
+                                                            <input type="password" id="Coordenada2" name="Coordenada2" maxlength="2" class="form-control" style="width:95%;text-align:center" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12" style="text-align: center;">
+
+                                            <div>
+
+                                                <button type="submit" id="btnContinuar" class="btn btn-primary">Guardar</button>
+                                                <a class="btn btn-primary" href="@Url.Action("Producto")">Cancelar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

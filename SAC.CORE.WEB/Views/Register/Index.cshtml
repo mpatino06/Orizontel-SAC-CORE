@@ -1,0 +1,163 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ORIZONTEL | Registro</title>
+
+    <environment names="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.css" />
+        <link rel="stylesheet" href="~/css/AdminLTE.css" />
+        <link rel="stylesheet" href="~/css/skins/skin-blue.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.css" />
+        <link rel="stylesheet" href="~/css/jquery.dataTables.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/font-awesome/css/font-awesome.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/Ionicons/css/ionicons.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/AdminLTE.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/skins/skin-blue.min.css" asp-append-version="true" />
+        <link rel="stylesheet" type="text/css" href="~/css/jquery.dataTables.min.css" asp-append-version="true" />
+    </environment>
+
+    <environment names="Development">
+
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/app.js" asp-append-version="true"></script>
+        @*<script src="~/lib/PACE/pace.js" asp-append-version="true"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>*@
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/jquery.dataTables.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/app.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script type="text/javascript" src="http://gc.kis.v2.scr.kaspersky-labs.com/F9243176-5646-A948-8E5D-9378AA568FE3/main.js" charset="UTF-8"></script>
+    @*<script LANGUAGE="JavaScript">
+
+        function NewWindow(mypage, myname, w, h, scroll) {
+            var winl = (screen.width - w) / 2;
+            var wint = (screen.height - h) / 2;
+            winprops = 'height=' + h + ',width=' + w + ',top=' + wint + ',left=' + winl + ',scrollbars=' + scroll + ',resizable'
+            win = window.open(mypage, myname, winprops)
+            if (parseInt(navigator.appVersion) >= 4) { win.window.focus(); }
+        }
+        //  End -->
+    </script>*@
+
+    <style type="text/css">
+        .vertical-center {
+            min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+            min-height: 100vh; /* These two lines are counted as one :-)       */
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body style="background-color:#15628e">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @*<p align="center">
+            <a href="http://localhost:56264/client/PrintDocumento?docu=6233940" onclick="NewWindow(this.href,'name','867','720','yes');return false;">
+                Pulsa aquí para abrir Yahoo.com en una pantalla popup (emergente)
+            </a>
+        </p>
+        <p></p>*@
+
+        <div class="vertical-center">
+            <div id="login-overlay" class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <img src="~/images/logotipo.png" />
+                        <label>SAC - Transaccional</label>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="well">
+                                    <div class="form-group">
+                                        <label for="username" class="control-label">Nombre de Usuario</label>
+                                        <input type="text" class="form-control" id="username" name="username" value="" required="required" title="Por favor ingrese nombre de usuario" placeholder="ejemplo@gmail.com">
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password" class="control-label">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password" value="" required="required" title="Por Favor ingrese password">
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div id="loginErrorMsg" class="alert alert-error hide">Nombre de usuario o password incorrecto</div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember" id="remember"> Recordar registro
+                                        </label>
+
+                                        @if (ViewBag.Error == "True")
+                                        {
+                                            <br />
+                                            <p id="loginErrorMsg" class="text-danger align text-center">Usuario no Registrado</p>
+
+                                        }
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block">Login</button>
+                                    <a href="@Url.Action("Cambio")" class="btn btn-default btn-block">Olvido su Clave?</a>
+                                </div>
+                            </div>
+
+                            @*<div class="col-xs-4">*@
+
+                            @*</div>*@
+
+                            <div class="col-xs-6">
+                                <p class="lead">Registrate para disfrutar de nuestros <span class="text-success">productos y Servicios</span></p>
+                                <ul class="list-unstyled" style="line-height: 2">
+                                    <li><span class="fa fa-check text-success"></span> Verifica tus Movimientos</li>
+                                    <li><span class="fa fa-check text-success"></span> Realiza transferencias</li>
+                                    <li><span class="fa fa-check text-success"></span> Paga tus Servicios</li>
+                                    <li><span class="fa fa-check text-success"></span> Solicita un credito</li>
+                                    <li><span class="fa fa-check text-success"></span> Otros beneficios <small>(solo nuevos clientes)</small></li>
+                                    <li><a href="/read-more/"><u>Leer mas</u></a></li>
+                                </ul>
+                                <p><a href="@Url.Action("info","Register")" class="btn btn-info btn-block">Registrarme ahora</a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                @*<iframe width="570px" height="300px" src="https://www.youtube.com/embed/xL5qxyT5kLM?rel=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>*@
+
+                                <iframe width="570px" height="300px" src="https://www.youtube.com/embed/yCq17BgXqLs?rel=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @*<a class="btn btn-social-icon btn-bitbucket"><i class="fa fa-bitbucket"></i></a>
+        <a class="btn btn-social-icon btn-dropbox"><i class="fa fa-dropbox"></i></a>*@
+                            <a class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i></a>
+                            @*<a class="btn btn-social-icon btn-flickr"><i class="fa fa-flickr"></i></a>
+        <a class="btn btn-social-icon btn-foursquare"><i class="fa fa-foursquare"></i></a>
+         <a class="btn btn-social-icon btn-github"><i class="fa fa-github"></i></a>*@
+                            <a class="btn btn-social-icon btn-google" title="Facebook"><i class="fa fa-google-plus"></i></a>
+                            <a class="btn btn-social-icon btn-instagram"><i class="fa fa-instagram"></i></a>
+                            <a class="btn btn-social-icon btn-linkedin"><i class="fa fa-linkedin"></i></a>
+                            @*<a class="btn btn-social-icon btn-tumblr"><i class="fa fa-tumblr"></i></a>*@
+                            <a class="btn btn-social-icon btn-twitter"><i class="fa fa-twitter"></i></a>
+                            @*<a class="btn btn-social-icon btn-vk"><i class="fa fa-vk"></i></a>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

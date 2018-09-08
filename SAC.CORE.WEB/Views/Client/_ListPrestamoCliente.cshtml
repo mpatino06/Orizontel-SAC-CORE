@@ -1,0 +1,67 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamoClientes>
+
+<div class="box-body table-responsive no-padding">
+
+    @{ if (Model.Any())
+        {
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr style="font-size:8pt">
+                        <th>
+                            Secuencial
+                        </th>
+                        <th>
+                            Secuencial Prestamo
+                        </th>
+                        <th>
+                            Secuencial cliente
+                        </th>
+                        <th>
+                            Principal
+                        </th>
+                        <th>
+                            Activo
+                        </th>
+                        <th>
+                            Numero Verificador
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(a => a.SECUENCIALPRESTAMO == ViewBag.SecPrestamo))
+                    {
+                        <tr>
+                            <td style="font-size:8pt">@item.SECUENCIAL.ToString()</td>
+                            <td style="font-size:8pt">@item.SECUENCIALPRESTAMO.ToString()</td>
+                            <td style="font-size:8pt">@item.SECUENCIALCLIENTE.ToString()</td>
+                            <td style="font-size:8pt">@{ if (item.ESPRINCIPAL)
+                                {
+                                        @Html.Raw("SI")
+                                }
+                                else
+                                {
+                                        @Html.Raw("NO")
+                                }
+                                }
+                            </td>
+                            <td style="font-size:8pt">@{ if (item.ESTAACTIVO)
+                                    {
+                            @Html.Raw("SI")
+                                }
+                                else
+                                {
+                            @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">@item.NUMEROVERIFICADOR.ToString()</td>
+                        </tr>
+
+                                    }
+                </tbody>
+            </table>
+
+                                        }
+
+                                    }
+</div>

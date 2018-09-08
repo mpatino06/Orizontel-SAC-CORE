@@ -1,0 +1,17 @@
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\XUnitTestSAC.deps.json
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\XUnitTestSAC.runtimeconfig.json
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\XUnitTestSAC.runtimeconfig.dev.json
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\XUnitTestSAC.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\XUnitTestSAC.pdb
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\SAC.CORE.API.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\bin\Debug\netcoreapp2.0\SAC.CORE.API.pdb
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.csprojResolveAssemblyReference.cache
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.csproj.CoreCompileInputs.cache
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.AssemblyInfoInputs.cache
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.AssemblyInfo.cs
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.csproj.CopyComplete
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.dll
+D:\SAC\SAC.CORE.API\XUnitTestSAC\obj\Debug\netcoreapp2.0\XUnitTestSAC.pdb

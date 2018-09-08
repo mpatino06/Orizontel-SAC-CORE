@@ -1,0 +1,577 @@
+﻿@model SAC.CORE.API.ExtendModels.SolicitudPrestamo
+@{
+    ViewData["Title"] = "SolicitudPrestamo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="MonMaximo" />
+    <input type="hidden" id="MonMinimo" />
+    <input type="hidden" id="PlazoMinimo" />
+    <input type="hidden" id="PlazoMaximo" />
+    <input type="hidden" id="tasaNominalM" value="9,54" />
+
+    @Html.HiddenFor(a => a.CodigoTipoPrestamo)
+    @Html.HiddenFor(a => a.SecuencialOficina, new { @Value = "6813" })
+    @Html.HiddenFor(a => a.CodigoProductoCartera, new { value = "5" })
+    @Html.HiddenFor(a => a.SecuencialSegmentoInterno, new { Value = 114 })
+    @Html.HiddenFor(a => a.SecuencialCondiccionTablaAmortz)
+    @Html.HiddenFor(a => a.CodigoSubcalificacionContable, new { @value = "401" })
+    @Html.HiddenFor(a => a.CobraporRol, new { @value = "0" })
+    @Html.HiddenFor(a => a.CodigoOrigenRecurso, new { @value = "P" })
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Simulador - Prestamo</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a): </span>
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+
+                <div id="Pass1" class="col-sm-offset-4 col-sm-4">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h3 class="panel-title">Cuadro de Amortizacion - Prestamos SAC</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="form-group row">
+                                        <label for="TipoPrestamo" class="col-sm-4 col-form-label">Credito</label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("TipoPrestamo", ViewData["TipoPrestamo"] as List<SelectListItem>, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="Amortizacion" class="col-sm-4 col-form-label">Tipo Amortización</label>
+                                        <div class="col-sm-8">
+                                            @Html.DropDownList("Amortizacion", ViewData["Amortizacion"] as List<SelectListItem>, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="colMonto" class="col-sm-4 col-form-label">Monto Solicitado</label>
+                                        <div class="col-sm-8">
+                                            @*<input type="number"  id="colMonto" placeholder="Monto a Solicitar">*@
+                                            @Html.TextBoxFor(a => a.MontoSolicitado, new { @type = "number", @class = "form-control input-sm", @placeholder = "Monto a Solicitar" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="colCuotas" class="col-sm-4 col-form-label">Numero de Cuotas</label>
+                                        <div class="col-sm-8">
+                                            @*<input type="number" class="form-control input-sm" id="colCuotas" placeholder="Número de cuotas (Meses)">*@
+                                            @Html.TextBoxFor(a => a.NumeroCuotas, new { @type = "number", @class = "form-control input-sm", @placeholder = "Número de cuotas (Meses)" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="colInteres" class="col-sm-4 col-form-label">Intereses (%)</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control input-sm" id="colInteres" readonly>
+                                        </div>
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="row">
+
+                                        <div class="col-lg-12" style="text-align: center;">
+
+                                            <div class="btn-group col-lg-6 col-lg-offset-3">
+                                                @*<button type="button" id="btnRegresar" class="btn btn-success"> Regresar</button>*@
+                                                <button type="button" id="btnCalcular" class="btn btn-primary btn-block" disabled><i class="fa fa-calculator"></i>&ensp; Calcular</button>
+                                                @*<button type="button" id="btnCancelar2" class="btn btn-danger"> Cancelar</button>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Pass2" class="col-sm-12">
+
+                    <div class="col-sm-6">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-12">
+                                        <h3 class="panel-title">Detalles Carga Financiera   &ensp; \   &ensp; Tasa de Interés</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row">
+                                            <label for="MonFinanciado" class="col-sm-7 col-form-label input-sm">Monto Financiado</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="MonFinanciado" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="MonLiquidado" class="col-sm-7 col-form-label input-sm">Monto Liquidado</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="MonLiquidado" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="MonIntereses" class="col-sm-7 col-form-label input-sm">Intereses</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="MonIntereses" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="MonSeguro" class="col-sm-7 col-form-label input-sm">Seguro</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="MonSeguro" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="MonFinanciera" class="col-sm-7 col-form-label input-sm">Carga Financiera</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="MonFinanciera" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="MonCuotas" class="col-sm-6 col-form-label input-sm">Total Cuotas</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control input-sm" id="MonCuotas" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+
+                                        <div class="form-group row">
+                                            <label for="TasaNominal" class="col-sm-7 col-form-label input-sm">Tasa Nominal</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="TasaNominal" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="TasaEfectiva" class="col-sm-7 col-form-label input-sm">Tasa efectiva</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="TasaEfectiva" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="TasaFinanciamiento" class="col-sm-7 col-form-label input-sm">Financiamiento</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="TasaFinanciamiento" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="TasaReferencia" class="col-sm-7 col-form-label input-sm">Referencia del BCE</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control input-sm" id="TasaReferencia" readonly>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-offset-3 col-sm-6">
+                                                <button type="submit" id="btnSolcitud" class="btn btn-primary btn-block"> <i class="fa fa-list-ul"></i> &ensp; Crear Solicitud</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-offset-3 col-sm-6">
+                                                <button type="button" id="btnPrint" class="btn btn-primary btn-block"><i class="fa fa-print"></i>&ensp; Imprimir</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-12">
+                                        <h3 class="panel-title">Tabla de Amortización</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                <table class="table table-hover table-bordered" id="tableCal">
+                                    <thead>
+                                        <tr class="table-success">
+                                            <th>
+                                                Cuota
+                                            </th>
+                                            <th>
+                                                Capital
+                                            </th>
+                                            <th>
+                                                Interes
+                                            </th>
+                                            <th>
+                                                Total
+                                            </th>
+                                            <th>
+                                                Saldo Capital
+                                            </th>
+                                            <th>
+                                                Desgravamen
+                                            </th>
+                                            <th>
+                                                Cuota
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () { //Inicio
+
+            $("#Pass2").hide();
+            var amortizacionSelecc = "";
+
+            $("#TipoPrestamo").on("change", function () {
+
+                var interes = $("#TipoPrestamo").val();
+                console.log(interes);
+
+                if (interes != 0) {
+
+                    var textCuentaSeleccionadaCliente = $("#TipoPrestamo option:selected").text();
+
+                    $("#colInteres").val(interes);
+
+                    document.getElementById("btnCalcular").disabled = "disabled";
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("GetPrestamos")',
+                        data: { name: textCuentaSeleccionadaCliente },
+                        success: function (data) {
+                            $("#CodigoTipoPrestamo").val(data.codigo)
+                            $("#PlazoMinimo").val(data.plazominimo);
+                            $("#PlazoMaximo").val(data.plazomaximo);
+                            $("#MonMinimo").val(data.montominimo);
+                            $("#MonMaximo").val(data.montomaximo);
+                            $("#btnCalcular").removeAttr("disabled");
+                        }
+                    });
+
+                }
+                else {
+                    document.getElementById("btnCalcular").disabled = "disabled";
+                    $("#colInteres").val("");
+                }
+
+            });
+
+            $("#Amortizacion").on("change", function () {
+
+                amortizacionSelecc = $("#TipoPrestamo option:selected").text();
+                var amortizacionValue = $("#Amortizacion").val();
+                $("#SecuencialCondiccionTablaAmortz").val(amortizacionValue);
+            });
+
+            $("#btnCalcular").on("click", function () {
+
+                if (validar()) {
+                    $("#Pass2").show();
+                    var amort = $("#Amortizacion option:selected").text(); // $("#Amortizacion").val()
+                    GeneraPagos(amort);
+                }
+                else {
+                    $("#Pass2").hide();
+
+                }
+            });
+
+            $("#btnPrint").on("click", function () {
+
+                printPage();
+            });
+
+            function validar() {
+                var txcredito = $("#TipoPrestamo").val();
+                var txamortizacion = $("#Amortizacion").val();
+                var txmontosolicitado = $("#MontoSolicitado").val();
+                var txcuotas = $("#NumeroCuotas").val();
+
+                var txMonMaximo = $("#MonMaximo").val();
+                var txMonMinimo = $("#MonMinimo").val();
+                var txPlazoMinimo = $("#PlazoMinimo").val();
+                var txPlazoMaximo =  $("#PlazoMaximo").val();
+
+                var result = true;
+
+                if ((txcredito == "0") || (txamortizacion == "0") || (txmontosolicitado == "") || (txcuotas == "")) {
+                    alertify
+                        .alert("Debe ingresar todos los valores solicitados.", function () {
+
+                        });
+                    return false
+                }
+                else if (Number(txmontosolicitado) < Number(txMonMinimo)) {
+                        alertify
+                            .alert("El monto solicitado es MENOR al permitido para este tipo de prestamo.", function () {
+
+                            });
+                        return false
+                    }
+                else if (Number(txmontosolicitado) > Number(txMonMaximo)) {
+                    alertify
+                        .alert("El monto solicitado es MAYOR al permitido para este tipo de prestamo.", function () {
+
+                        });
+                    return false
+                }
+                else if (Number(txcuotas) < Number(txPlazoMinimo)) {
+                    alertify
+                        .alert("El numero de cuotas es MENOR al permitido para este tipo de prestamo.", function () {
+
+                        });
+                    return false
+                }
+                else if (Number(txcuotas) > Number(txPlazoMaximo)) {
+                    alertify
+                        .alert("El numero de cuotas es MAYOR al permitido para este tipo de prestamo.", function () {
+
+                        });
+                    return false
+                }
+
+                return result;
+            }
+
+            function GeneraPagos(amortizaccion) {
+
+                var totalcapital = 0;
+                var totalinteres = 0;
+                var totalcapint = 0;
+                var totalsaldocap = 0;
+                var totaldesgravam = 0;
+                var totalcuota_desg = 0;
+                var montointseg = 0;
+                var montCargaCuotas = 0;
+
+                var tasanominal = 0;
+                var tasaefectiva = 0;
+                var costofinanciamiento = 0;
+
+                var montoSolicitado = 0;
+                var cuotas = 0;
+                var porcentaje = 0;
+                var capitalpendiente = 0;
+
+                if (amortizaccion == "Alemana") {
+
+                    montoSolicitado = Number($("#MontoSolicitado").val());
+                    cuotas = Number($("#NumeroCuotas").val());
+                    porcentaje = parseFloat($("#colInteres").val().replace(",", "."));
+
+                    capitalpendiente = montoSolicitado;
+
+                    var html = '';
+                    for (i = 1; i <= cuotas; i++) {
+
+                        intereses = Math.round(((((capitalpendiente * porcentaje) * 30) / 360) * 100) / 100) / 100;
+                        amortizacion = Math.floor((montoSolicitado / cuotas) * 100) / 100;
+                        capitalpendiente = Math.round((capitalpendiente - amortizacion) * 100) / 100;
+                        cuota = Math.floor((amortizacion + intereses) * 100) / 100;
+                        desgravamen = Math.round((capitalpendiente * 0.00046) * 100) / 100;
+                        cuota_desg = Math.round((cuota + desgravamen) * 100) / 100;
+
+                        totalcapital = totalcapital + amortizacion;
+                        totalinteres = totalinteres + intereses;
+                        totalcapint = totalcapint + cuota;
+                        totalsaldocap = totalsaldocap + capitalpendiente;
+                        totaldesgravam = totaldesgravam + desgravamen;
+                        totalcuota_desg = totalcuota_desg + cuota_desg;
+
+                        html += "<tr>";
+                        html += "<td>" + i + "</td>";
+                        html += "<td>" + amortizacion + "</td>";
+                        html += "<td>" + intereses + "</td>";
+                        html += "<td>" + cuota + "</td>";
+                        html += "<td>" + capitalpendiente + "</td>";
+                        html += "<td>" + desgravamen + "</td>";
+                        html += "<td>" + cuota_desg + "</td>";
+
+                    }
+
+                    html += "<tr>";
+                    html += "<td><b>Total:</b></td>";
+                    html += "<td><b>" + (Math.round(totalcapital * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalinteres * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalcapint * 100) / 100) + "</b></td>";
+                    html += "<td></td>";
+                    html += "<td><b>" + (Math.round(totaldesgravam * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalcuota_desg * 100) / 100) + "</b></td>";
+
+                    $('.tbody').html(html);
+
+                    montointseg = parseFloat(totalinteres) + parseFloat(totaldesgravam);
+                    montCargaCuotas = montoSolicitado + (Math.round(montointseg * 100) / 100);
+
+                    $("#MonFinanciado").val("$ " + montoSolicitado.toString());
+                    $("#MonLiquidado").val("$ " + montoSolicitado.toString());
+                    $("#MonIntereses").val("$ " + (Math.round(totalinteres * 100) / 100).toString());
+                    $("#MonSeguro").val("$ " + (Math.round(totaldesgravam * 100) / 100).toString());
+                    $("#MonFinanciera").val("$ " + (Math.round(montointseg * 100) / 100).toString());
+                    $("#MonCuotas").val("$ " + montCargaCuotas.toString());
+
+                    tasanominal = parseFloat($("#tasaNominalM").val().replace(",", "."));
+                    tasaefectiva = (Math.pow((1 + ((parseFloat(tasanominal) / 100) * (1 / 12))), 12) - 1) * 100;
+                    costofinanciamiento = Math.round(parseFloat(10.21) * 1.02722222 * 100) / 100;
+
+                    $("#TasaNominal").val(tasanominal.toString() + "  %");
+                    $("#TasaEfectiva").val((Math.round(tasaefectiva * 100) / 100).toString() + "  %");
+                    $("#TasaFinanciamiento").val("9.8  %");
+                    $("#TasaReferencia").val("10.21  %");
+                }
+                else { //Francesa
+
+                    montoSolicitado = Number($("#MontoSolicitado").val());
+                    cuotas = Number($("#NumeroCuotas").val());
+                    porcentaje = parseFloat(parseFloat(parseFloat($("#colInteres").val().replace(",", ".")) / 100) / 12);
+                    cuota = Math.floor((montoSolicitado * porcentaje) / (1 - Math.pow(1 + porcentaje, (-1 * cuotas))) * 100) / 100;
+                    capitalpendiente = montoSolicitado;
+
+                    for (i = 1; i <= cuotas; i++) {
+
+                        intereses = Math.round(capitalpendiente * porcentaje * 100) / 100;
+                        amortizacion = Math.round((cuota - intereses) * 100) / 100;
+                        capitalpendiente = Math.round((capitalpendiente - amortizacion) * 100) / 100;
+                        desgravamen = Math.round((capitalpendiente * 0.00042) * 100) / 100;
+                        cuota_desg = Math.round((cuota + desgravamen) * 100) / 100;
+
+                        totalcapital = totalcapital + amortizacion;
+                        totalinteres = totalinteres + intereses;
+                        totalcapint = totalcapint + cuota;
+                        totalsaldocap = totalsaldocap + capitalpendiente;
+                        totaldesgravam = totaldesgravam + desgravamen;
+                        totalcuota_desg = totalcuota_desg + cuota_desg;
+
+                        html += "<tr>";
+                        html += "<td>" + i + "</td>";
+                        html += "<td>" + amortizacion + "</td>";
+                        html += "<td>" + intereses + "</td>";
+                        html += "<td>" + cuota + "</td>";
+                        html += "<td>" + capitalpendiente + "</td>";
+                        html += "<td>" + desgravamen + "</td>";
+                        html += "<td>" + cuota_desg + "</td>";
+                    }
+
+                    html += "<tr>";
+                    html += "<td><b>Total:</b></td>";
+                    html += "<td><b>" + (Math.round(totalcapital * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalinteres * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalcapint * 100) / 100) + "</b></td>";
+                    html += "<td></td>";
+                    html += "<td><b>" + (Math.round(totaldesgravam * 100) / 100) + "</b></td>";
+                    html += "<td><b>" + (Math.round(totalcuota_desg * 100) / 100) + "</b></td>";
+
+                    $('.tbody').html(html);
+
+                    montointseg = parseFloat(totalinteres) + parseFloat(totaldesgravam);
+                    montCargaCuotas = montoSolicitado + (Math.round(montointseg * 100) / 100);
+
+                    $("#MonFinanciado").val("$ " + montoSolicitado.toString());
+                    $("#MonLiquidado").val("$ " + montoSolicitado.toString());
+                    $("#MonIntereses").val("$ " + (Math.round(totalinteres * 100) / 100).toString());
+                    $("#MonSeguro").val("$ " + (Math.round(totaldesgravam * 100) / 100).toString());
+                    $("#MonFinanciera").val("$ " + (Math.round(montointseg * 100) / 100).toString());
+                    $("#MonCuotas").val("$ " + montCargaCuotas.toString());
+
+                    tasanominal = parseFloat($("#tasaNominalM").val().replace(",", "."));
+                    tasaefectiva = (Math.pow((1 + ((parseFloat(tasanominal) / 100) * (1 / 12))), 12) - 1) * 100;
+                    costofinanciamiento = Math.round(parseFloat(10.21));
+
+                    $("#TasaNominal").val(tasanominal.toString() + "  %");
+                    $("#TasaEfectiva").val((Math.round(tasaefectiva * 100) / 100).toString() + "  %");
+                    $("#TasaFinanciamiento").val("9.8  %");
+                    $("#TasaReferencia").val("10.21  %");
+                }
+            }
+
+            function printPage() {
+
+                document.getElementById('btnCalcular').style.visibility = 'hidden';
+                document.getElementById('btnSolcitud').style.visibility = 'hidden';
+                document.getElementById('btnPrint').style.visibility = 'hidden';
+
+                if (typeof (window.print) != 'undefined') {
+
+                    window.print();
+
+                }
+                document.getElementById('btnCalcular').style.visibility = '';
+                document.getElementById('btnSolcitud').style.visibility = '';
+                document.getElementById('btnPrint').style.visibility = '';
+
+            }
+
+            //$("#btnRegresar").on("click", function () {
+            //    $("#Pass1").show();
+            //    $("#Pass2").hide();
+            //});
+
+            //$("#btnCancelar2").on("click", function () {
+            //    LimpiarControles();
+            //});
+
+            //function LimpiarControles() {
+
+            //    document.getElementById("CuentaDebitar").selectedIndex = 0;
+            //    document.getElementById("CuentaAbonar").selectedIndex = 0;
+            //    $("#Monto").val("");
+            //    $("#Concepto").val("");
+
+            //    $("#colFormLabelDebito").val("");
+            //    $("#colFormLabelBeneficiario").val("");
+            //    $("#colFormLabelMonto").val("");
+            //    $("#colFormLabelConcepto").val("");
+            //    $("#Coordenada1").val("");
+            //    $("#Coordenada1").val("");
+
+            //    $("#Pass1").show();
+            //    $("#Pass2").hide();
+            //}
+        });
+    </script>
+
+}

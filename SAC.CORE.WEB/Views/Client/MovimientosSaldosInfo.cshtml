@@ -1,0 +1,457 @@
+﻿@model SAC.CORE.API.ExtendModels.ClienteMovimientoSaldos
+@{
+    ViewData["Title"] = "MovimientosSaldosInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Movimientos Saldos</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-inline">
+                    <label>Documento de Identidad: </label>
+                    <div class="input-group col-md-2">
+                        @Html.TextBoxFor(a => a._PERSONAS.IDENTIFICACION, new { @class = "form-control", @readonly = "readonly" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    @Html.DisplayFor(a => a._PERSONAS.NOMBREUNIDO)
+                </div>
+
+                @*<div class="form-inline">
+                    <a href="@Url.Action("MovimientosSaldos", "Client")">Nueva Busqueda</a>
+                </div>*@
+            </div>
+        </div>
+
+        <div class="row">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#info">Info</a></li>
+                <li><a data-toggle="tab" href="#telefono">Movimientos</a></li>
+                <li><a data-toggle="tab" href="#prestamo">Prestamos</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="info" class="tab-pane fade in active">
+                    <p></p>
+                    <div class="row">
+                        <!--  panel left  -->
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default panel-table">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col col-xs-6">
+                                            <h3 class="panel-title">Personas</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.SECUENCIAL, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="row form-group">
+                                            <label>Direccion Domicilio</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.DIRECCIONDOMICILIO, new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="row form-group">
+                                            <label>Referencia Domiciliaria</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.REFERENCIADOMICILIARIA, new { @class = "form-control input-sm" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Email</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.EMAIL, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial Tipo Identificación</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.SECUENCIALTIPOIDENTIFICACION, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencia tipo Residencia</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.SECUENCIALDIVPOLRESIDENCIA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Codigo Pais Origen</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.CODIGOPAISORIGEN, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Numero Verificador</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.NUMEROVERIFICADOR, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial div Actividad Econ</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.SECUENCIALDIVACTIVIDADECON, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Codigo Socio Migra</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.CODIGOSOCIOMIGRA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Identificación Migra</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS.IDENTIFICACIONMIGRA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--  panel right  -->
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default panel-table">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col col-xs-6">
+                                            <h3 class="panel-title">Cliente</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.SECUENCIAL, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencia Oficina</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.SECUENCIALOFICINA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial Persona</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.SECUENCIALPERSONA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Numero cliente</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.NUMEROCLIENTE, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Fecha Ingreso</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.FECHAINGRESO, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Codigo Usuario Oficial</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.CODIGOUSUARIOOFICIAL, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Codigo Sector Economico</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.CODIGOSECTORECONOMICO, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Código Tipo Vinculación</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.CODIGOTIPOVINCULACION, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Código Calificación Interna</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.CODIGOCALIFICACIONINTERNA, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Secuencial División Mercado</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.SECUENCIALDIVISIONMERCADO, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Código Estado Cliente</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.CODIGOESTADOCLIENTE, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row form-group">
+                                            <label>Número Verificador</label>
+                                            @Html.TextBoxFor(a => a._PERSONAS._CLIENTES.NUMEROVERIFICADOR, new { @class = "form-control input-sm", @style = "width:98%;" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p></p>
+                <div id="telefono" class="tab-pane fade">
+                    <div class="col-md-12">
+                        <div class="box-solid">
+                            <div class="box-body table-responsive no-padding">
+                                @{ if (Model._PERSONAS._CLIENTES._PRESTAMOSCLIENTES.Any())
+                                    {
+                                        @Html.Partial("_ListMovSaldos", Model._PERSONAS._CLIENTES._PRESTAMOSCLIENTES)
+
+                                    }
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="prestamo" class="tab-pane fade">
+                    <p></p>
+                    <div class="col-md-12">
+                        <div class="box-solid">
+                            @Html.Partial("_ListPrestamos2", Model._SALDOS_PAGOS)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title" id="myModalLabel">Saldos (Prestamo Componente Cartera)</h4>
+                </div>
+                <div class="modal-body">
+                    @*<form>*@
+
+                    @*<div class="col-md-12">*@
+                    <div class="box-solid">
+                        <table class="table table-hover table-bordered table-striped" id="tableSaldos">
+                            <thead>
+                                <tr style="font-size:8pt">
+                                    <th>
+                                        Sec.
+                                    </th>
+                                    <th>
+                                        Sec. Prest.
+                                    </th>
+                                    <th>
+                                        S.C.C.
+                                    </th>
+                                    <th>
+                                        Proyectado
+                                    </th>
+                                    <th>
+                                        Calculado
+                                    </th>
+                                    <th>
+                                        cobrado
+                                    </th>
+                                    <th>
+                                        Fec Inicio
+                                    </th>
+                                    <th>
+                                        Fec. Venc.
+                                    </th>
+                                    <th>
+                                        N.C.
+                                    </th>
+                                    <th>
+                                        C.E.P.C.
+                                    </th>
+                                    <th>
+                                        Factor Calculado
+                                    </th>
+                                    <th>
+                                        Dias Calculados
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody"></tbody>
+                        </table>
+                    </div>
+                    @*   </div>*@
+                    @*</form>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () { //Inicio
+
+            var myTablePrestamo = $('#TablePrestamo').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TablePrestamo tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            //var sss = $('#tableSaldos').DataTable({
+            //    language: {
+            //        "decimal": "",
+            //        "emptyTable": "No hay información",
+            //        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            //        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+            //        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            //        "infoPostFix": "",
+            //        "thousands": ",",
+            //        "lengthMenu": "Mostrar _MENU_ Entradas",
+            //        "loadingRecords": "Cargando...",
+            //        "processing": "Procesando...",
+            //        "search": "Buscar:",
+            //        "zeroRecords": "Sin resultados encontrados",
+            //        "paginate": {
+            //            "first": "Primero",
+            //            "last": "Ultimo",
+            //            "next": "Siguiente",
+            //            "previous": "Anterior"
+            //        }
+            //    }
+            //});
+
+            $('#tableSaldos tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+            var myTable = $('#TableMovimientosSaldos').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#TableMovimientosSaldos tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+        });
+
+        function getById(item) {
+
+            var object = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model._SALDOS_PAGOS.ToList()) as String);
+
+            var youngsters = object.filter(function (items) {
+                return items.NUMEROPRESTAMO == item;
+            })
+
+            var html = '';
+            $.each(youngsters[0]._SALDOS, function (key, vals) {
+                html += '<tr>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIAL + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALPRESTAMO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.SECUENCIALCOMPONENTECARTERA + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.VALORPROYECTADO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.VALORCALCULADO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.VALORCOBRADO + '</td>';
+                html += '<td  style=font-size:8pt>' + moment(vals.FECHAINICIO).format('DD/MM/YYYY') + '</td>';
+                html += '<td  style=font-size:8pt>' + moment(vals.FECHAVENCIMIENTO).format('DD/MM/YYYY') + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.NUMEROCUOTA + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.CODIGOESTADOPRESTAMOCOMPONENTE + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.FACTORCALCULO + '</td>';
+                html += '<td  style=font-size:8pt>' + vals.DIASCALCULADOS + '</td>';
+                html += '</tr>';
+            });
+            $('.tbody').html(html);
+
+            $('#myModal').modal('show');
+
+        }
+    </script>
+}

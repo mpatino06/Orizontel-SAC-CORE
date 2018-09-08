@@ -1,0 +1,103 @@
+﻿@model List<SAC.CORE.API.ExtendModels.CalificacionPrestamos>
+
+<div class="box-body table-responsive no-padding">
+
+    @{ if (Model.Any())
+        {
+            <table class="table table-hover table-bordered table-striped" id="TableCalificacionPrestamo">
+                <thead>
+                    <tr style="font-size:8pt">
+                        <th>
+                            Secuencial
+                        </th>
+                        <th>
+                            Secuencial Prestamo
+                        </th>
+                        <th>
+                            Dias Morosidad
+                        </th>
+                        <th>
+                            Saldo Prestamo
+                        </th>
+                        <th>
+                            Sec cond Cal AUT
+                        </th>
+                        <th>
+                            Sec cond Cal Manual
+                        </th>
+                        <th>
+                            Provisión Automatica
+                        </th>
+                        <th>
+                            Provisión Manual
+                        </th>
+                        <th>
+                            Provisión Constituida
+                        </th>
+                        <th>
+                            Cod Usuario
+                        </th>
+
+                        <th>
+                            Fec Califificacón
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            Fec Máquina
+                        </th>
+                        <th>
+                            Num Verificador
+                        </th>
+                        <th>
+                            Homologada?
+                        </th>
+                        <th>
+                            Provision Original
+                        </th>
+                        <th>
+                            Sec Cond Cal Aut Ori
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td style="font-size:8pt">@item.SECUENCIAL.ToString()</td>
+                        <td style="font-size:8pt">@item.SECUENCIALPRESTAMO.ToString()</td>
+                        <td style="font-size:8pt">@item.DIASMOROSIDAD</td>
+                        <td style="font-size:8pt">@item.SALDOPRESTAMO</td>
+                        <td style="font-size:8pt">@item.SECUENCIALCONDICIONCALIFAUT</td>
+                        <td style="font-size:8pt">@item.SECUENCIALCONDICIONCALIFMANUAL</td>
+                        <td style="font-size:8pt">@item.PROVISIONAUTOMATICA.ToString()</td>
+                        <td style="font-size:8pt">@item.PROVISIONMANUAL.ToString()</td>
+                        <td style="font-size:8pt">@item.PROVISIONCONSTITUIDA</td>
+                        <td style="font-size:8pt">@item.CODIGOUSUARIO</td>
+                        <td style="font-size:8pt">@item.FECHACALIFICACION.ToString("dd/MM/yyyy")</td>
+                        <td style="font-size:8pt">@item.FECHACALIFICACION_MES_ANO</td>
+                        <td style="font-size:8pt">@item.FECHAMAQUINA.ToString("dd/MM/yyyy")</td>
+                        <td style="font-size:8pt">@item.NUMEROVERIFICADOR</td>
+                        <td style="font-size:8pt">
+                            @{ if ((bool)item.ESHOMOLOGADA)
+            {
+                    @Html.Raw("SI")
+}
+else
+{
+                    @Html.Raw("NO")
+}
+                            }
+                        </td>
+                        <td style="font-size:8pt">@item.PROVISIONORIGINAL</td>
+                        <td style="font-size:8pt">@item.SECUENCIALCONDCALIFAUTORIGINAL</td>
+                    </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        }
+
+    }
+</div>

@@ -1,0 +1,178 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamoMaestros>
+
+<div class="box-body table-responsive no-padding">
+
+    @{ if (Model.Any())
+        {
+            <table class="table table-hover table-bordered table-striped" id="TablePrestamo">
+                <thead>
+                    <tr style="font-size:8pt">
+                        <th>
+                            Prestamo
+                        </th>
+                        <th>
+                            Empresa
+                        </th>
+                        <th>
+                            C.T.P.
+                        </th>
+                        <th>
+                            C.P.C.
+                        </th>
+                        @*<th>
+                                Sec Segmento Interno
+                            </th>
+                            <th>
+                                Sec Condiccion Con Almo
+                            </th>
+                            <th>
+                                Cod Sub Cali cont.
+                            </th>*@
+                        <th>
+                            Frec Pago
+                        </th>
+                        <th>
+                            Num Cuotas
+                        </th>
+                        <th>
+                            Deuda Inic
+                        </th>
+                        <th>
+                            Val entregado
+                        </th>
+                        <th>
+                            Fec Adjud.
+                        </th>
+                        <th>
+                            Fec Venc.
+                        </th>
+                        @*<th>
+                                Sec Moneda
+                            </th>*@
+                        <th>
+                            C.E.P.
+                        </th>
+                        <th>
+                            Sal Actual
+                        </th>
+                        <th>
+                            C.A.
+                        </th>
+                        <th>
+                            C.P.
+                        </th>
+                        @*<th>
+                                Cod Usuario
+                            </th>*@
+                        <th>
+                            Sec Oficina
+                        </th>
+                        <th>
+                            Cobra por Rol
+                        </th>
+                        <th>
+                            Se Reajusta
+                        </th>
+                        <th>
+                            Dias Reajuste
+                        </th>
+                        <th>
+                            Fec Corte
+                        </th>
+                        <th>
+                            Tea con Seg
+                        </th>
+                        <th>
+                            Tea sin Seg
+                        </th>
+                        <th>
+                            Esta Vig clas
+                        </th>
+                        <th>
+                            Bloq Transac
+                        </th>
+                        <th>
+                            Num Pagare
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="font-size:8pt"><a href="#" onclick="getById('@item.NUMEROPRESTAMO.ToString()');">@item.NUMEROPRESTAMO.ToString()</a></td>
+                            <td style="font-size:8pt">@item.SECUENCIALEMPRESA.ToString()</td>
+                            <td style="font-size:8pt">@item.CODIGOTIPOPRESTAMO.ToString()</td>
+                            <td style="font-size:8pt">@item.CODIGOPRODUCTOCARTERA.ToString()</td>
+                            <td style="font-size:8pt">@item.FRECUENCIAPAGO.ToString()</td>
+                            <td style="font-size:8pt">@item.NUMEROCUOTAS</td>
+                            <td style="font-size:8pt">@item.DEUDAINICIAL</td>
+                            <td style="font-size:8pt">@item.VALORENTREGADO</td>
+                            <td style="font-size:8pt">@item.FECHAADJUDICACION.ToString("dd/MM/yyyy")</td>
+                            <td style="font-size:8pt">@item.FECHAVENCIMIENTO.ToString("dd/MM/yyyy")</td>
+                            @*<td style="font-size:8pt">@item.SECUENCIALMONEDA.ToString()</td>*@
+                            <td style="font-size:8pt">@item.CODIGOESTADOPRESTAMO.ToString()</td>
+                            <td style="font-size:8pt">@item.SALDOACTUAL.ToString()</td>
+                            <td style="font-size:8pt">@item.CALIFICACIONACTUAL.ToString()</td>
+                            <td style="font-size:8pt">@item.CALIFICACIONPEOR.ToString()</td>
+                            @*<td style="font-size:8pt">@item.CODIGOUSUARIOOFICIAL.ToString()</td>*@
+                            <td style="font-size:8pt">@item.SECUENCIALOFICINA.ToString()</td>
+                            <td style="font-size:8pt">
+                                @{ if (item.COBRAPORROL)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">
+                                @{ if (item.SEREAJUSTA)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">@item.DIASREAJUSTE.ToString()</td>
+                            <td style="font-size:8pt">@item.FECHACORTE.ToString("dd/MM/yyyy")</td>
+                            <td style="font-size:8pt">@item.TEACONSEGURO.ToString()</td>
+                            <td style="font-size:8pt">@item.TEASINSEGURO.ToString()</td>
+                            <td style="font-size:8pt">
+                                @{ if (item.ESTAVIGENTECLASIFICACION)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">
+                                @{ if (item.BLOQUEADOTRANSACCIONOPERATIVA)
+                                    {
+                                        @Html.Raw("SI")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("NO")
+                                    }
+                                }
+                            </td>
+                            <td style="font-size:8pt">@item.NUMEROPAGARE.ToString()</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        }
+
+    }
+</div>

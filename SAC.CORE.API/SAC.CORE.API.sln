@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAC.CORE.API", "SAC.CORE.API.csproj", "{1C122BE8-734E-4546-A142-1B62B8985190}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SAC.CORE.WEB", "..\SAC.CORE.WEB\SAC.CORE.WEB.csproj", "{3FC881DE-D655-4CA9-ABB9-AF50E2745C25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C122BE8-734E-4546-A142-1B62B8985190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C122BE8-734E-4546-A142-1B62B8985190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C122BE8-734E-4546-A142-1B62B8985190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C122BE8-734E-4546-A142-1B62B8985190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FC881DE-D655-4CA9-ABB9-AF50E2745C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC881DE-D655-4CA9-ABB9-AF50E2745C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC881DE-D655-4CA9-ABB9-AF50E2745C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC881DE-D655-4CA9-ABB9-AF50E2745C25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D0416E94-A84B-46CC-BCB4-E86F6B1EF0E3}
+	EndGlobalSection
+EndGlobal

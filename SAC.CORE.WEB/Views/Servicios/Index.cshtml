@@ -1,0 +1,249 @@
+﻿@model List<SAC.CORE.API.ExtendModels.AfiliacionServicios>
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="col-md-12">
+
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col col-xs-12">
+                            <h3 class="panel-title">Mis Afiliaciones de Productos y servicios</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-inline">
+                        <span>Bienvenido(a): </span>
+                        <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                        <label class="pull-right">@DateTime.Now.ToString()</label>
+                    </div>
+
+                    <br />
+
+                    <div class="col-md-12">
+
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col col-xs-6">
+                                        <h3 class="panel-title">Afiliaciones</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+
+                                @if (Model != null)
+                                {
+
+                                    @if (Model.Count > 0)
+                                    {
+
+                                        <br />
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="box-solid">
+                                                    <div class="box-body table-responsive no-padding">
+
+                                                        <table class="table table-hover table-bordered table-striped" id="TableAfiliacion">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        Fecha Afiliación
+                                                                    </th>
+                                                                    <th>
+                                                                        Nombre del Servicio
+                                                                    </th>
+                                                                    <th>
+                                                                        Identificacion del servicio
+                                                                    </th>
+                                                                    <th>
+                                                                        Nombre del Beneficiario
+                                                                    </th>
+                                                                    <th>
+                                                                        Descripcion
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    <tr>
+                                                                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                                                                        <td>@item.NombreServicio</td>
+                                                                        <td>@item.NumeroCuenta</td>
+                                                                        <td>@item.NombreBeneficiario</td>
+                                                                        <td>
+                                                                            <a href="@Url.Action("Productoedit", new { Id = item.IdAfiliciacionCliente})">@item.NombreAfiliacion</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+
+                                        <span class="help-block"> Estimado Cliente, usted no tiene Afiliado ningun servicio</span>
+                                    }
+                                }
+                                else
+                                {
+
+                                        <span class="help-block"> Estimado Cliente, usted no tiene Afiliado ningun servicio</span>
+                                }
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <a class="btn btn-primary btn-sm  pull-right" href="@Url.Action("Producto")"> Agregar Servicios </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    @section scripts{
+        <script type="text/javascript">
+
+            $(document).ready(function () { //Inicio
+
+                var myTableTelephone = $('#TableAfiliacion').DataTable({
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                        "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscar:",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                });
+
+                $('#TableAfiliacion tbody').on('click', 'tr', function () {
+                    $(this).toggleClass('selected');
+                });
+
+            });
+        </script>
+    }
+
+    @*@using (Html.BeginForm())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div class="col-md-12">
+
+                <div class="panel panel-default panel-table">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col col-xs-12">
+                                <h3 class="panel-title">Servicios Adiccionales - Afiliar productos y servicios</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="form-inline">
+                            <span>Bienvenido(a): </span>
+                            <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                            <label class="pull-right">@DateTime.Now.ToString()</label>
+                        </div>
+
+                        <br />
+
+                        <div id="Pass1" class="col-sm-offset-4 col-sm-4">
+
+                            <div class="panel panel-default panel-table">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col col-xs-12">
+                                            <h3 class="panel-title">Validar Coordenadas</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+
+                                            <br />
+                                            <div class="form-group row">
+                                                <label class="col-sm-12 col-form-label">Verifique que el serial de su tarjeta de seguridad sea el numero ****503</label>
+                                            </div>
+                                            <div class="col-sm-12 form-group row">
+                                                <span> Si el número mostrado es igual al serial de su tarjeta, por favor introduzca las coordenadas solicitadas a continuación</span>
+                                            </div>
+
+                                            <br />
+                                            <br />
+                                            <div class="row" style="text-align: center;">
+                                                <div class="col-sm-offset-3">
+
+                                                    <div class="col-lg-4">
+                                                        <div class="row form-group">
+                                                            <label>X1</label>
+                                                            <input type="password" id="Coordenada1" name="Coordenada1" maxlength="2" class="form-control" style="width:95%;text-align:center" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="row form-group">
+                                                            <label>X2</label>
+                                                            <input type="password" id="Coordenada2" name="Coordenada2" maxlength="2" class="form-control" style="width:95%;text-align:center" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr />
+
+                                            <div class="row">
+
+                                                <div class="col-lg-12" style="text-align: center;">
+
+                                                    <div>
+
+                                                        <button type="submit" id="btnCalcular" class="btn btn-primary">Aceptar</button>
+
+                                                        <button type="button" id="btnCancelar" class="btn btn-primary">Cancelar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }*@

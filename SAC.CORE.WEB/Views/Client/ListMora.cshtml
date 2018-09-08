@@ -1,0 +1,346 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamoMaestros>
+@{
+    ViewData["Title"] = "ListMora";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="content-header">
+        <h1>
+            Cliente
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+            <li><a href="#">User</a></li>
+        </ol>
+    </section>
+    <br />
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Mora</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @*<div class="form-inline">
+                    <label>Codigo: &ensp;&ensp; </label>
+                    <div class="input-group col-md-2">
+                        @Html.TextBox("ID", null, new { @readonly = "readonly", id = "ID", @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <p></p>*@
+
+                <div class="form-inline">
+                    <label>Fecha Inicio: &ensp; </label>
+                    <div class="input-group col-md-2">
+                        <div class='input-group date' id='datetimepicker6'>
+                            <input type='text' class="form-control" readonly="readonly" value="@ViewBag.Fini" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <p></p>
+                <div class="form-inline">
+                    <label>Fecha Final:&ensp;&ensp; </label>
+                    <div class="input-group col-md-2">
+                        <div class='input-group date' id='datetimepicker7'>
+                            <input type='text' class="form-control" readonly="readonly" value="@ViewBag.FFin">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("Mora")">Nueva Busqueda</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box-solid">
+            <div class="box-body table-responsive no-padding">
+
+                @{ if (Model.Any())
+                    {
+                        <table class="table table-hover table-bordered table-striped" id="tableList">
+                            <thead>
+                                <tr style="font-size:8pt">
+                                    <th>
+                                        Prestamo
+                                    </th>
+                                    <th>
+                                        Empresa
+                                    </th>
+                                    <th>
+                                        C.T.P.
+                                    </th>
+                                    <th>
+                                        C.P.C.
+                                    </th>
+                                    @*<th>
+            Sec Segmento Interno
+        </th>
+        <th>
+            Sec Condiccion Con Almo
+        </th>
+        <th>
+            Cod Sub Cali cont.
+        </th>*@
+                                    <th>
+                                        Frec Pago
+                                    </th>
+                                    <th>
+                                        Num Cuotas
+                                    </th>
+                                    <th>
+                                        Deuda Inic
+                                    </th>
+                                    <th>
+                                        Val entregado
+                                    </th>
+                                    <th>
+                                        Fec Adjud.
+                                    </th>
+                                    <th>
+                                        Fec Venc.
+                                    </th>
+                                    @*<th>
+            Sec Moneda
+        </th>*@
+                                    <th>
+                                        C.E.P.
+                                    </th>
+                                    <th>
+                                        Sal Actual
+                                    </th>
+                                    <th>
+                                        C.A.
+                                    </th>
+                                    <th>
+                                        C.P.
+                                    </th>
+                                    @*<th>
+            Cod Usuario
+        </th>*@
+                                    <th>
+                                        Oficina
+                                    </th>
+                                    <th>
+                                        Cobra por Rol
+                                    </th>
+                                    <th>
+                                        Se Reajusta
+                                    </th>
+                                    <th>
+                                        Dias Reajuste
+                                    </th>
+                                    <th>
+                                        Fec Corte
+                                    </th>
+                                    <th>
+                                        Tea con Seg
+                                    </th>
+                                    <th>
+                                        Tea sin Seg
+                                    </th>
+                                    <th>
+                                        Esta Vig clas
+                                    </th>
+                                    <th>
+                                        Bloq Transac
+                                    </th>
+                                    <th>
+                                        Num Pagare
+                                    </th>
+                                    <th>
+                                        Val Calc
+                                    </th>
+                                    <th>
+                                        Cuotas Venc
+                                    </th>
+                                    <th>
+                                        Días Mora
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td style="font-size:8pt; width:30pt">@item.NUMEROPRESTAMO.ToString()</td>
+                                    <td style="font-size:8pt">@item.SECUENCIALEMPRESA.ToString()</td>
+                                    <td style="font-size:8pt">@item.CODIGOTIPOPRESTAMO.ToString()</td>
+                                    <td style="font-size:8pt">@item.CODIGOPRODUCTOCARTERA.ToString()</td>
+                                    @*<td style="font-size:8pt">@item.SECUENCIALSEGMENTOINTERNO.ToString()</td>
+        <td style="font-size:8pt">@item.SECUENCIALCONDICIONTABLAAMORTZ.ToString()</td>
+        <td style="font-size:8pt">@item.CODIGOSUBCALIFICACIONCONTABLE.ToString()</td>*@
+                                    <td style="font-size:8pt">@item.FRECUENCIAPAGO.ToString()</td>
+                                    <td style="font-size:8pt">@item.NUMEROCUOTAS</td>
+                                    <td style="font-size:8pt">@item.DEUDAINICIAL</td>
+                                    <td style="font-size:8pt">@item.VALORENTREGADO</td>
+                                    <td style="font-size:8pt">@item.FECHAADJUDICACION.ToString("dd/MM/yyyy")</td>
+                                    <td style="font-size:8pt">@item.FECHAVENCIMIENTO.ToString("dd/MM/yyyy")</td>
+                                    @*<td style="font-size:8pt">@item.SECUENCIALMONEDA.ToString()</td>*@
+                                    <td style="font-size:8pt">@item.CODIGOESTADOPRESTAMO.ToString()</td>
+                                    <td style="font-size:8pt">@item.SALDOACTUAL.ToString()</td>
+                                    <td style="font-size:8pt">@item.CALIFICACIONACTUAL.ToString()</td>
+                                    <td style="font-size:8pt">@item.CALIFICACIONPEOR.ToString()</td>
+                                    @*<td style="font-size:8pt">@item.CODIGOUSUARIOOFICIAL.ToString()</td>*@
+                                    <td style="font-size:8pt">@item.SECUENCIALOFICINA.ToString()</td>
+                                    <td style="font-size:8pt">
+                                        @{ if (item.COBRAPORROL)
+            {
+                                @Html.Raw("SI")
+}
+else
+{
+                                @Html.Raw("NO")
+}
+                                        }
+                                    </td>
+                                    <td style="font-size:8pt">
+                                        @{ if (item.SEREAJUSTA)
+            {
+                                @Html.Raw("SI")
+}
+else
+{
+                                @Html.Raw("NO")
+}
+                                        }
+                                    </td>
+                                    <td style="font-size:8pt">@item.DIASREAJUSTE.ToString()</td>
+                                    <td style="font-size:8pt">@item.FECHACORTE.ToString("dd/MM/yyyy")</td>
+                                    <td style="font-size:8pt">@item.TEACONSEGURO.ToString()</td>
+                                    <td style="font-size:8pt">@item.TEASINSEGURO.ToString()</td>
+                                    <td style="font-size:8pt">
+                                        @{ if (item.ESTAVIGENTECLASIFICACION)
+            {
+                                @Html.Raw("SI")
+}
+else
+{
+                                @Html.Raw("NO")
+}
+                                        }
+                                    </td>
+                                    <td style="font-size:8pt">
+                                        @{ if (item.BLOQUEADOTRANSACCIONOPERATIVA)
+            {
+                                @Html.Raw("SI")
+}
+else
+{
+                                @Html.Raw("NO")
+}
+                                        }
+                                    </td>
+                                    <td style="font-size:8pt">@item.NUMEROPAGARE.ToString()</td>
+                                    @if (item._MORA != null)
+    {
+                                <td style="font-size:8pt">@item._MORA.VALORCALCULADO</td>
+                                <td style="font-size:8pt">@item._MORA.CUOTASVENCIDAS</td>
+                                <td style="font-size:8pt">@item._MORA.DIASDEMORA</td>
+}
+else
+{
+                                <td style="font-size:8pt"></td>
+                                <td style="font-size:8pt"></td>
+                                <td style="font-size:8pt"></td>
+}
+
+                                    @*<td style="font-size:8pt">@item.IDENTIFICACIONSUJETOORIGINAL.ToString()</td>*@
+                                    @*<td style="font-size:8pt">@item.NUMEROVERIFICADOR.ToString()</td>*@
+                                </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+
+}
+@section scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () { //Inicio
+            var myTable = $('#tableList').DataTable({
+                language: {
+                    "decimal": "",
+                    "emptyTable": "No hay información",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Entradas",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "Sin resultados encontrados",
+                    "paginate": {
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Siguiente",
+                        "previous": "Anterior"
+                    }
+                },
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // Remove the formatting to get integer data for summation
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // Total over all pages
+                    total = api
+                        .column(24)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Total over this page
+                    pageTotal = api
+                        .column(24, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    // Update footer
+                    $(api.column(24).footer()).html(
+                        '$' + pageTotal + ' ( $' + total + ' total)'
+                    );
+                }
+            });
+
+            $('#tableList tbody').on('click', 'tr', function () {
+                $(this).toggleClass('selected');
+            });
+
+        });
+   </script>
+
+}

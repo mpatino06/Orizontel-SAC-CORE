@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <section class="content-header">
+        <h1>
+            Usuario
+            <small>Preview</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-user"></i> Home</a></li>
+            <li><a href="#">User</a></li>
+        </ol>
+    </section>
+    <br />
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-6">
+                        <h3 class="panel-title">Usuario</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-inline">
+                    <label>Codigo Usuario: </label>
+                    <div class="input-group col-md-2">
+                        @Html.TextBox("ID", null, new { @required = "required", id = "ID", @placeholder = "Ej: 123456789", @class = "form-control" })
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                    @if(ViewBag.ExisteUsuario == "False")
+                    {
+                    <span class="help-block">Usuario no Registrado</span>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

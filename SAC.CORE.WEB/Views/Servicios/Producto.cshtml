@@ -1,0 +1,159 @@
+﻿@{
+    ViewData["Title"] = "Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" id="nameProducto" name="nameProducto" />
+    <div class="col-md-12">
+
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col col-xs-12">
+                        <h3 class="panel-title">Servicios Adiccionales - Afiliar productos y servicios - Agregar</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-inline">
+                    <span>Bienvenido(a): </span>
+                    <label class="text-uppercase">@ViewData["NombreUnido"]</label>
+                    <label class="pull-right">@DateTime.Now.ToString()</label>
+                </div>
+
+                <br />
+
+                <div id="Pass1" class="col-sm-offset-4 col-sm-4">
+
+                    <div class="panel panel-default panel-table">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col col-xs-12">
+                                    <h3 class="panel-title">Selecionar Servicio y prodcuto</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="content">
+                                        <br />
+                                       <div class="form-group row">
+                                            <span>Para realizar la afiliación de un producto o servicio, por favor seleccione <b>tipo de servicio</b> que desea afiliar y luego seleccione el producto.  </span>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Tipo de Servicio: </label>
+                                            <div class="input-group col-md-8">
+                                                @Html.DropDownList("IdTipoServicio", ViewData["TipoServicio"] as List<SelectListItem>, new { @class = "form-control input-sm" })
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search sm"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-4">Producto: </label>
+                                            <div class="input-group col-md-8">
+                                                @Html.DropDownList("IdServicio", ViewData["TipoServicio"] as List<SelectListItem>, new { @class = "form-control input-sm", @width = "90px", @disabled = "disabled" })
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="row">
+
+                                            <div class="col-lg-12" style="text-align: center;">
+
+                                                <div>
+
+                                                    <button type="submit" id="btnContinuar" class="btn btn-primary" disabled>Continuar</button>
+                                                    <a class="btn btn-primary" href="@Url.Action("Index")">Cancelar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+
+    $(document).ready(function () { //Inicio
+
+        $("#IdTipoServicio").on("change", function () {
+
+            var _idtipoServicio = $("#IdTipoServicio").val();
+
+            $("#IdServicio").empty();
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetProductos")',
+                datatype: 'json',
+                data: { Id : _idtipoServicio },
+                success: function (list) {
+
+                    $("#IdServicio").removeAttr("disabled")
+
+                    $.each(list, function (i, info) {
+                        $("#IdServicio").append('<option value="' + info.value + '">' + info.text + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert("Failed");
+                }
+
+            });
+
+            $("#nameProducto").val(_nombreProducto);
+
+        });
+
+        $("#IdServicio").on("change", function () {
+            var _servicio = $("#IdServicio").val();
+            var _nombreServicio = $("#IdServicio option:selected").text();
+
+            if (_servicio !== "0") {
+                $("#nameProducto").val(_nombreServicio);
+                $("#btnContinuar").removeAttr("disabled")
+            }
+            else {
+                $("#btnContinuar").attr("disabled", "disabled")
+            }
+
+        });
+
+        $("#btnCancelar").on("click", function () {
+            LimpiarControles();
+        });
+
+        function LimpiarControles() {
+
+            document.getElementById("IdTipoServicio").selectedIndex = 0;
+            document.getElementById("IdServicio").selectedIndex = 0;
+            $("#IdServicio").attr("disabled", "disabled");
+            $("#btnContinuar").attr("disabled", "disabled");
+
+        }
+    });
+    </script>
+
+}

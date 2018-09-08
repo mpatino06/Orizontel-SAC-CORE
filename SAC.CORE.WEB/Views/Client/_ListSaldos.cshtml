@@ -1,0 +1,74 @@
+﻿@model List<SAC.CORE.API.ExtendModels.PrestamoComponente_Carteras>
+
+<div class="box-body table-responsive no-padding">
+
+    @{ if (Model.Any())
+        {
+            <table class="table table-hover table-bordered table-striped" id="TableSaldos">
+                <thead>
+                    <tr style="font-size:8pt">
+                        <th>
+                            Secuencial
+                        </th>
+                        <th>
+                            Secuencial Prestamo
+                        </th>
+                        <th>
+                            Secuencial Componente Cartera
+                        </th>
+                        <th>
+                            Valor Proyectado
+                        </th>
+                        <th>
+                            Valor Calculado
+                        </th>
+                        <th>
+                            Valor Cobrado
+                        </th>
+                        <th>
+                            Fecha Inicio
+                        </th>
+                        <th>
+                            Fecha Vencimiento
+                        </th>
+                        <th>
+                            Número Cuotas
+                        </th>
+                        <th>
+                            C.E.P.C.
+                        </th>
+
+                        <th>
+                            Factor Calculo
+                        </th>
+                        <th>
+                            Dias Calculados
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td style="font-size:8pt">@item.SECUENCIAL.ToString()</td>
+                        <td style="font-size:8pt">@item.SECUENCIALPRESTAMO.ToString()</td>
+                        <td style="font-size:8pt">@item.SECUENCIALCOMPONENTECARTERA.ToString()</td>
+                        <td style="font-size:8pt">@item.VALORPROYECTADO</td>
+                        <td style="font-size:8pt">@item.VALORCALCULADO</td>
+                        <td style="font-size:8pt">@item.VALORCOBRADO</td>
+                        <td style="font-size:8pt">@item.FECHAINICIO.ToString("dd/MM/yyyy")</td>
+                        <td style="font-size:8pt">@item.FECHAVENCIMIENTO.ToString("dd/MM/yyyy")</td>
+                        <td style="font-size:8pt">@item.NUMEROCUOTA</td>
+                        <td style="font-size:8pt">@item.CODIGOESTADOPRESTAMOCOMPONENTE</td>
+                        <td style="font-size:8pt">@item.FACTORCALCULO</td>
+                        <td style="font-size:8pt">@item.DIASCALCULADOS</td>
+                    </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        }
+
+    }
+</div>
